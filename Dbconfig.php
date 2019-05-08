@@ -29,6 +29,10 @@ class Dbconfig{
             trigger_error("Failed to connect to Database: " . mysqli_connect_error(), E_USER_ERROR);
         }
     }
+
+    // Magic method clone is empty to prevent duplication of connection
+    private function __clone() { }
+
     public function getConnection(){
         return $this->connection;
     }
