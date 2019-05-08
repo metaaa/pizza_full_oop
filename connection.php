@@ -2,7 +2,7 @@
 
 return [
     'serverName' => 'host',
-    'dbName' => 'db',
+    'dbName' => 'database',
     'dbUsername' => 'user',
     'dbPassword' => 'password'
 ];
