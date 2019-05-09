@@ -2,7 +2,7 @@
 
 include 'Dbconfig.php';
 
-class Pizza extends Dbconfig {
+class Pizza extends Dbconfig implements iMethods {
     //Variables
     var $pizza_id;
     var $pizza_name;
@@ -10,7 +10,7 @@ class Pizza extends Dbconfig {
     var $pizza_items;
     var $pizza_image;
     //Validate form
-    public function validatePizza(){
+    public function validate(){
         if (empty($this->pizza_name) || empty($this->pizza_price) || empty($this->pizza_items) || empty($this->pizza_image)){
             return false;
         } else {
@@ -18,11 +18,11 @@ class Pizza extends Dbconfig {
         }
     }
     //Checks whether it's a new pizza
-    public function isNewPizza(){
+    public function isNewRecord(){
         return empty($this->pizza_id);
     }
     //Add new pizza
-    public function addPizza($pName, $pItems, $pPrice, $pImage){
+    public function add($pName, $pItems, $pPrice, $pImage){
         $this->pizza_name = $pName;
         $this->pizza_items = $pItems;
         $this->pizza_price = $pPrice;
@@ -32,23 +32,23 @@ class Pizza extends Dbconfig {
         return $addResult;
     }
     //Delete a pizza
-    function removePizza($delete_pizza_id){
+    function remove($delete_pizza_id){
         $this->pizza_id = $delete_pizza_id;
         $removePizzaQuery = "DELETE FROM pizzas WHERE pId = '$delete_pizza_id'";
         $removeResult = Dbconfig::getInstance()->getConnection()->query($removePizzaQuery);
         return $removeResult;
     }
     //Modify a pizza
-    function modifyPizza(){
+    function modify(){
 
     }
     //Save the modifications
-    public function savePizza(){
-        if ($this->validatePizza()) {
-            if ($this->isNewPizza()) {
-                return $this->addPizza();
+    public function save(){
+        if ($this->validate()) {
+            if ($this->isNew()) {
+                return $this->add();
             } else {
-                return $this->modifyPizza();
+                return $this->modify();
             }
         } else {
             return false;
