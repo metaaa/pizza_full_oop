@@ -37,7 +37,7 @@ class Pizza extends Dbconfig implements iMethods
      */
     public function insert()
     {
-        $addPizzaQuery = "INSERT INTO pizzas (pId, pName, pItems, pPrice, pImage) VALUES (null,'$this->pizza_name', '$this->pizza_items', '$this->pizza_price', '$this->pizza_image')";
+        $addPizzaQuery = "INSERT INTO pizzas (pId, pName, pItems, pPrice, pImage) VALUES (null,'$this->name', '$this->items', '$this->price', '$this->image')";
         $addResult = Dbconfig::getInstance()->getConnection()->query($addPizzaQuery);
         return $addResult;
     }
@@ -59,7 +59,7 @@ class Pizza extends Dbconfig implements iMethods
      *
      * @return bool
      */
-    public function modify()
+    public function update()
     {
         // TODO: implement update.
     }
@@ -76,11 +76,11 @@ class Pizza extends Dbconfig implements iMethods
             if ($this->isNewRecord()) {
                 return $this->insert();
             } else {
-                return $this->modify();
+                return $this->update();
             }
-        } else {
-            return false;
         }
+
+        return false;
     }
 }
 
