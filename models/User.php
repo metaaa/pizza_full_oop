@@ -1,11 +1,11 @@
 <?php
 
-class Pizza extends Dbconfig implements iMethods
+class User extends Dbconfig implements iMethods
 {
     public $id;
     public $name;
-    public $price;
-    public $items;
+    public $credits;
+    public $address;
     public $image;
 
     /**
@@ -14,7 +14,7 @@ class Pizza extends Dbconfig implements iMethods
      */
     public function validate()
     {
-        if (empty($this->name) || empty($this->price) || empty($this->items) || empty($this->image)){
+        if (empty($this->name) || empty($this->credits) || empty($this->address) || empty($this->image)){
             return false;
         } else {
             return true;
@@ -31,37 +31,37 @@ class Pizza extends Dbconfig implements iMethods
     }
 
     /**
-     * Insert a new pizza record to database.
+     * Insert a user record to database.
      *
      * @return bool|mysqli_result
      */
     public function insert()
     {
-        $addPizzaQuery = "INSERT INTO pizzas (pId, pName, pItems, pPrice, pImage) VALUES (null,'$this->name', '$this->items', '$this->price', '$this->image')";
-        $addResult = Dbconfig::getInstance()->getConnection()->query($addPizzaQuery);
+        $addUserQuery = "INSERT INTO users (uId, uName, uCredits, uAddress, uImage) VALUES (null,'$this->name', '$this->credits', '$this->address', '$this->image')";
+        $addResult = Dbconfig::getInstance()->getConnection()->query($addUserQuery);
         return $addResult;
     }
 
     /**
-     * Removes a single pizza record from database.
+     * Removes a single user record from database.
      * @return bool|mysqli_result
      */
     public function remove()
     {
-        $removePizzaQuery = "DELETE FROM pizzas WHERE pId = '$this->id'";
-        $removeResult = Dbconfig::getInstance()->getConnection()->query($removePizzaQuery);
+        $removeUserQuery = "DELETE FROM users WHERE uId = '$this->id'";
+        $removeResult = Dbconfig::getInstance()->getConnection()->query($removeUserQuery);
 
         return $removeResult;
     }
 
     /**
-     * Updates a pizza record in database.
+     * Updates a user record in database.
      *
      * @return bool
      */
     public function update()
     {
-        $columns = array('name', 'price', 'items', 'image');
+        $columns = array('name', 'credits', 'address', 'image');
         $values = $setValues = array();
         foreach ($columns as $column){
             if (isset($this->$column)){
@@ -74,7 +74,7 @@ class Pizza extends Dbconfig implements iMethods
 
 
     /**
-     * Saves the current instance of pizza to database.
+     * Saves the current instance of user to database.
      *
      * @return bool|mysqli_result
      */
@@ -91,4 +91,3 @@ class Pizza extends Dbconfig implements iMethods
         return false;
     }
 }
-
