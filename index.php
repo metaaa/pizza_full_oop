@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 spl_autoload_register(function ($className) {
     include "models/$className.php";
 });
@@ -36,8 +37,10 @@ $db = Dbconfig::getInstance()->getConnection();
         <div id="mainMenu" class="flash-error">
             <?= Flash::getError() ?>
         </div>
-    <?php }
-        Flash::flushFlash() ?>
+    <?php
+        }
+        Flash::flush()
+    ?>
 
     <div class="divDivider" ></div>
     <div id="content" class="divContent">

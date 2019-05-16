@@ -1,15 +1,21 @@
 <?php
+
 class Dbconfig
 {
     protected $serverName;
     protected $dbName;
     protected $dbUsername;
     protected $dbPassword;
+
     private static $instance;
+
     private $connection;
 
-    //Get an instance of the Database and return Instance
-
+    /**
+     * Get an instance of the Database and return it
+     *
+     * @return Dbconfig
+     */
     public static function getInstance()
     {
         if (!self::$instance) { // If no instance then make one
@@ -18,6 +24,9 @@ class Dbconfig
         return self::$instance;
     }
 
+    /**
+     * Dbconfig constructor.
+     */
     private function __construct()
     {
         $config = require "connection.php";
@@ -32,12 +41,17 @@ class Dbconfig
         }
     }
 
-    // Magic method clone is empty to prevent duplication of connection
+    /**
+     * Magic method clone is empty to prevent duplication of connection
+     */
     private function __clone()
     {
 
     }
 
+    /**
+     * @return mysqli
+     */
     public function getConnection()
     {
         return $this->connection;

@@ -1,52 +1,80 @@
 <?php
 
-include 'Dbconfig.php';
+class Pizza extends Dbconfig implements iMethods
+{
+    public $id;
+    public $name;
+    public $price;
+    public $items;
+    public $image;
 
-class Pizza extends Dbconfig implements iMethods {
-    //Variables
-    var $pizza_id;
-    var $pizza_name;
-    var $pizza_price;
-    var $pizza_items;
-    var $pizza_image;
-    //Validate form
-    public function validate(){
+    /**
+     * Validates the model's attributes.
+     * @return bool
+     */
+    public function validate()
+    {
         if (empty($this->pizza_name) || empty($this->pizza_price) || empty($this->pizza_items) || empty($this->pizza_image)){
             return false;
         } else {
             return true;
         }
     }
-    //Checks whether it's a new pizza
-    public function isNewRecord(){
-        return empty($this->pizza_id);
+
+    /**
+     * Checks whether the current model is a freshly created one or not.
+     * @return bool
+     */
+    public function isNewRecord()
+    {
+        return empty($this->id);
     }
-    //Add new pizza
-    public function add(){
-        $this->pizza_name = $pName;
-        $this->pizza_items = $pItems;
-        $this->pizza_price = $pPrice;
-        $this->pizza_image = $pImage;
+
+    /**
+     * Insert a new pizza record to database.
+     *
+     * @return bool|mysqli_result
+     */
+    public function insert()
+    {
         $addPizzaQuery = "INSERT INTO pizzas (pId, pName, pItems, pPrice, pImage) VALUES (null,'$this->pizza_name', '$this->pizza_items', '$this->pizza_price', '$this->pizza_image')";
         $addResult = Dbconfig::getInstance()->getConnection()->query($addPizzaQuery);
         return $addResult;
     }
-    //Delete a pizza
-    public function remove(){
-        $this->pizza_id = $delete_pizza_id;
-        $removePizzaQuery = "DELETE FROM pizzas WHERE pId = '$delete_pizza_id'";
+
+    /**
+     * Removes a single pizza record from database.
+     * @return bool|mysqli_result
+     */
+    public function remove()
+    {
+        $removePizzaQuery = "DELETE FROM pizzas WHERE pId = '$this->id'";
         $removeResult = Dbconfig::getInstance()->getConnection()->query($removePizzaQuery);
+
         return $removeResult;
     }
-    //Modify a pizza
-    public function modify(){
 
+    /**
+     * Updates a pizza record in database.
+     *
+     * @return bool
+     */
+    public function modify()
+    {
+        // TODO: implement update.
     }
-    //Save the modifications
-    public function save(){
+
+
+    /**
+     * Saves the current instance of pizza to database.
+     *
+     * @return bool|mysqli_result
+     */
+    public function save()
+    {
         if ($this->validate()) {
-            if ($this->isNew()) {
-                return $this->add();
+            if ($this->isNewRecord()) {
+                return $this->insert();
             } else {
                 return $this->modify();
             }

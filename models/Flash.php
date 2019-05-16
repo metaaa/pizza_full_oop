@@ -2,6 +2,9 @@
 
 class Flash
 {
+    /**
+     * @param $message
+     */
     public static function error($message)
     {
         $_SESSION['flash-error'] = $message;
@@ -15,6 +18,9 @@ class Flash
         $_SESSION['flash-success'] = $message;
     }
 
+    /**
+     * @return null
+     */
     public static function getError()
     {
         if (isset($_SESSION['flash-error'])) {
@@ -23,6 +29,9 @@ class Flash
         return null;
     }
 
+    /**
+     * @return null
+     */
     public static function getSuccess()
     {
         if (isset($_SESSION['flash-success'])) {
@@ -30,7 +39,11 @@ class Flash
         }
         return null;
     }
-    public static function flushFlash()
+
+    /**
+     *
+     */
+    public static function flush()
     {
         unset($_SESSION['flash-error']);
         unset($_SESSION['flash-success']);
