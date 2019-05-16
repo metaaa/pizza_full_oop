@@ -22,7 +22,7 @@ class Pizza extends Dbconfig implements iMethods {
         return empty($this->pizza_id);
     }
     //Add new pizza
-    public function add($pName, $pItems, $pPrice, $pImage){
+    public function add(){
         $this->pizza_name = $pName;
         $this->pizza_items = $pItems;
         $this->pizza_price = $pPrice;
@@ -32,14 +32,14 @@ class Pizza extends Dbconfig implements iMethods {
         return $addResult;
     }
     //Delete a pizza
-    function remove($delete_pizza_id){
+    public function remove(){
         $this->pizza_id = $delete_pizza_id;
         $removePizzaQuery = "DELETE FROM pizzas WHERE pId = '$delete_pizza_id'";
         $removeResult = Dbconfig::getInstance()->getConnection()->query($removePizzaQuery);
         return $removeResult;
     }
     //Modify a pizza
-    function modify(){
+    public function modify(){
 
     }
     //Save the modifications

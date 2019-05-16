@@ -1,0 +1,2 @@
+<?php
+    Flash::error("Oops");

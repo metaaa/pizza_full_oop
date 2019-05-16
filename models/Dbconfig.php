@@ -1,6 +1,6 @@
 <?php
-class Dbconfig{
-
+class Dbconfig
+{
     protected $serverName;
     protected $dbName;
     protected $dbUsername;
@@ -10,15 +10,17 @@ class Dbconfig{
 
     //Get an instance of the Database and return Instance
 
-    public static function getInstance() {
-        if(!self::$instance) { // If no instance then make one
+    public static function getInstance()
+    {
+        if (!self::$instance) { // If no instance then make one
             self::$instance = new self();
         }
         return self::$instance;
     }
 
-    private function __construct(){
-        $config = require(connection.php);
+    private function __construct()
+    {
+        $config = require "connection.php";
         foreach ($config as $key => $value){
             $this->$key = $value;
         }
@@ -31,9 +33,13 @@ class Dbconfig{
     }
 
     // Magic method clone is empty to prevent duplication of connection
-    private function __clone() { }
+    private function __clone()
+    {
 
-    public function getConnection(){
+    }
+
+    public function getConnection()
+    {
         return $this->connection;
     }
 }
