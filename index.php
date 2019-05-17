@@ -21,9 +21,7 @@ $db = Dbconfig::getInstance()->getConnection();
     <div class="grid-container">
         <div class="header"></div>
     <div class="menu">
-        <ul>
-            <?= Menu::getAll(); ?>
-        </ul>
+            <?= Menu::getMenus(); ?>
     </div>
     <?php
         if (Flash::getSuccess()) { ?>
@@ -63,7 +61,22 @@ $db = Dbconfig::getInstance()->getConnection();
             }
             ?>
         </div>
-        <div class="actions"></div>
+        <div class="actions">
+            <form action="" method="post">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" class="form-control" value="">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control" value="">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Submit">
+                    <input type="reset" class="btn btn-default" value="Reset">
+                </div>
+            </form>
+        </div>
     </div>
     <div class="footer"></div>
     </div>

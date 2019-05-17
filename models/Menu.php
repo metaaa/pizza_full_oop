@@ -9,12 +9,14 @@ class Menu extends Dbconfig
         return (100 / $countResult[0]);
     }
 
-    public static function getAll()
+    public static function getMenus()
     {
         $menuQuery = "SELECT * FROM menu";
         $menuQueryResult = Dbconfig::getInstance()->getConnection()->query($menuQuery);
+        echo "<ul>";
         while ($row = $menuQueryResult->fetch_assoc()){
             echo '<li style="width: ' . self::countRows() . '%"><a href="index.php?page=' . $row['mLink'] . '">' . $row['mName'] . '</a>';
         }
+        echo "</ul>";
     }
 }
