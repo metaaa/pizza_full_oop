@@ -68,19 +68,8 @@ class Pizza extends BaseRecord implements iMethods
 
             }
         }
-
         //$updatePizzaQuery = "UPDATE pizzas SET name='$this->name' price='$this->price', ";
     }
 
-
-    /**
-     * Saves the current instance of pizza to database.
-     *
-     * @return bool|mysqli_result
-     */
-    public function save()
-    {
-        $this->save();
-    }
 }
 

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: root
- * Date: 5/17/19
- * Time: 11:26 AM
- */
 
 class BaseRecord extends Dbconfig
 {
@@ -17,7 +11,6 @@ class BaseRecord extends Dbconfig
                 return $this->update();
             }
         }
-
         return false;
     }
 }

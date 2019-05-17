@@ -22,9 +22,7 @@ $db = Dbconfig::getInstance()->getConnection();
         <div class="header"></div>
     <div class="menu">
         <ul>
-            <?php
-            include 'content-files/menu.php';
-            ?>
+            <?= Menu::getAll(); ?>
         </ul>
     </div>
     <?php
