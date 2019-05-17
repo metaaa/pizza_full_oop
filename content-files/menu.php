@@ -30,13 +30,7 @@ function menuBasic($menuItems)
     //set different class to active menuitem
     $page = $_GET['page'];
     foreach ($menuItems as $item) {
-        echo '<li ';
-
-        if ($page == $item['menuText']) {
-            echo 'class="selectedMenuItem" ';
-        }
-
-        echo 'style="width: ' . $cell_width . '%"><a href="index.php?page=' . $item['menuText'] . '">' . $item['menuText'] . '</a>';
+        echo '<li style="width: ' . $cell_width . '%"><a href="index.php?page=' . $item['menuText'] . '">' . $item['menuText'] . '</a>';
     }
 }
 

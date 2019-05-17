@@ -17,11 +17,11 @@ $db = Dbconfig::getInstance()->getConnection();
 <head>
     <title>order pizza by metaaa</title>
 </head>
-<body class="divBody">
-<div id="siteArea" class="divSiteArea">
-    <div id="header" class="divHeader"></div>
-    <div id="mainMenu" class="divMainMenu">
-        <ul class="mainMenuList" id="mainMenuList">
+<body>
+    <div class="grid-container">
+        <div class="header"></div>
+    <div class="menu">
+        <ul>
             <?php
             include 'content-files/menu.php';
             ?>
@@ -29,13 +29,13 @@ $db = Dbconfig::getInstance()->getConnection();
     </div>
     <?php
         if (Flash::getSuccess()) { ?>
-            <div id="mainMenu" class="flash-success">
+            <div class="flash">
                 <?= Flash::getSuccess() ?>
             </div>
     <?php
         }
         if (Flash::getError()) { ?>
-        <div id="mainMenu" class="flash-error">
+        <div class="flash">
             <?= Flash::getError() ?>
         </div>
     <?php
@@ -43,9 +43,8 @@ $db = Dbconfig::getInstance()->getConnection();
         Flash::flush()
     ?>
 
-    <div class="divDivider" ></div>
-    <div id="content" class="divContent">
-        <div id="leftColumn" class="divLeftColumn">
+    <div class="body-container">
+        <div class="content">
             <?php
             //set the content for the pages
             $pagesDir = 'content-files';
@@ -66,10 +65,9 @@ $db = Dbconfig::getInstance()->getConnection();
             }
             ?>
         </div>
-        <div id="footer" class="divFooter">
-            <div id="footerLeft" class="divFooterLeft"></div>
-            <div id="footerRight" class="divFooterRight"></div>
-        </div>
+        <div class="actions"></div>
+    </div>
+    <div class="footer"></div>
     </div>
 </body>
 </html>

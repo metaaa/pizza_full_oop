@@ -1,6 +1,6 @@
 <?php
 
-class Pizza extends Dbconfig implements iMethods
+class Pizza extends BaseRecord implements iMethods
 {
     public $id;
     public $name;
@@ -80,15 +80,7 @@ class Pizza extends Dbconfig implements iMethods
      */
     public function save()
     {
-        if ($this->validate()) {
-            if ($this->isNewRecord()) {
-                return $this->insert();
-            } else {
-                return $this->update();
-            }
-        }
-
-        return false;
+        $this->save();
     }
 }
 
