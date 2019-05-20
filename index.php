@@ -6,8 +6,7 @@ spl_autoload_register(function ($className) {
     include "models/$className.php";
 });
 
-$db = Dbconfig::getInstance()->getConnection();
-
+//$db = Dbconfig::getInstance()->getConnection();
 
 ?>
 <!DOCTYPE html>
@@ -62,20 +61,7 @@ $db = Dbconfig::getInstance()->getConnection();
             ?>
         </div>
         <div class="actions">
-            <form action="" method="post">
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" name="username" class="form-control" value="">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" name="password" class="form-control" value="">
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Submit">
-                    <input type="reset" class="btn btn-default" value="Reset">
-                </div>
-            </form>
+
         </div>
     </div>
     <div class="footer"></div>

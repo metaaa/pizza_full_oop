@@ -2,3 +2,6 @@ connection.php
 *.xml
 *.iml
 .idea/*
+login.php
+logout.php
+register.php

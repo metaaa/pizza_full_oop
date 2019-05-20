@@ -2,11 +2,12 @@
 
 class User extends Dbconfig implements iMethods
 {
-    public $id;
-    public $name;
-    public $credits;
-    public $address;
-    public $image;
+    private $id;
+    private $name;
+    private $password;
+    private $credits;
+    private $address;
+    private $image;
 
     /**
      * Validates the model's attributes.
@@ -90,4 +91,48 @@ class User extends Dbconfig implements iMethods
 
         return false;
     }
+
+    /**
+     * Logs the user in
+     *
+     * @return bool
+     */
+    public function login()
+    {
+        $this->name = $this->getConnection()->real_escape_string($_POST["username"]);
+        $this->password = $this->getConnection()->real_escape_string($_POST["password"]);
+        $checkLogin = $this->getConnection()->query(" SELECT username, password FROM users WHERE username = '" . $this->name . "';");
+        //checks if there was a user with this name or not
+        if ($checkLogin->num_rows > 0) {
+            $result = $checkLogin->fetch_object();
+            //if both the username and the password match we set the sessions
+            if ($this->password == $result->password){
+                $_SESSION["logged_in"] = true;
+                $_SESSION["username"] = $result->name;
+                $_SESSION["uId"] = $result->id;
+            //set the cookie for half an hour
+                setcookie("username", $result->name, time () + 1800);
+                return true;
+            } else {
+                Flash::error("Wrong username or password!");
+                return false;
+            }
+        } else {
+            Flash::error("Wrong username or password!");
+            return false;
+        }
+    }
+
+    /**
+     * Logs the user out.
+     */
+    public function logout()
+    {
+        if (isset($_SESSION["logged_in"])){
+            session_unset();
+            session_destroy();
+            header("location: ../index.php");
+        }
+    }
+
 }

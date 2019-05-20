@@ -4,7 +4,8 @@ class BaseRecord extends Dbconfig
 {
     public function save()
     {
-        if ($this->validate()) {
+        if ($this->validate())
+        {
             if ($this->isNewRecord()) {
                 return $this->insert();
             } else {
@@ -12,5 +13,10 @@ class BaseRecord extends Dbconfig
             }
         }
         return false;
+    }
+
+    public function getAllRecords()
+    {
+        return $this->getAll();
     }
 }
