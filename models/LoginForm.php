@@ -1,6 +1,6 @@
 <?php
 
-class LoginForm
+class LoginForm extends User
 {
     public $username;
     public $password;
@@ -11,7 +11,7 @@ class LoginForm
      */
     public function checkUsername()
     {
-        $this->name = $this->getConnection()->real_escape_string($_POST["username"]);
+        $this->username = $this->getConnection()->real_escape_string($_POST["username"]);
         $this->password = $this->getConnection()->real_escape_string($_POST["password"]);
         $checkLogin = $this->getConnection()->query(" SELECT id, username, password FROM users WHERE username = '" . $this->name . "';");
         //checks if there was a user with this name or not
@@ -19,11 +19,7 @@ class LoginForm
             $result = $checkLogin->fetch_object();
             //if both the username and the password match we set the sessions
             if ($this->password == $result->password){
-                $_SESSION["logged_in"] = true;
-                $_SESSION["username"] = $result->name;
-                $_SESSION["uId"] = $result->id;
-                //set the cookie for half an hour
-                setcookie("username", $result->name, time () + 1800);
+
                 return true;
             } else {
                 Flash::error("Wrong username or password!");
@@ -35,27 +31,41 @@ class LoginForm
         }
     }
 
+    public function checkPassword()
+    {
+        //$this->username =
+    }
+
     /**
      * @return bool
      */
     public function validate()
     {
         if (empty($this->username)) {
-            Flash::error("empty username...");
+            Flash::error("Fill the username!");
             return false;
         }
 
         if (empty($this->password)) {
-            Flash::error("empty password...");
+            Flash::error("Fill the password!");
             return false;
         }
 
         if (strlen($this->password) < 6) {
-            Flash::error("Too short pass..");
+            Flash::error("Too short password!");
             return false;
         }
 
-        //if !empty usergetbyusername
+        if (empty($this->getUserByUsername())) {
+            var_dump("asdasdas");
+            Flash::error("User not found!");
+            return false;
+        }
+
+        if (empty($this->getUserByPassword())) {
+            Flash::error("Wrong Password!");
+            return false;
+        }
 
         return true;
     }
@@ -67,9 +77,10 @@ class LoginForm
         if (!$this->validate()) {
             return false;
         }
-
+        $user = new User();
+        $user = $this->getUserByUsername();
         //amajd $user = User::getuserbyusername
-        $user->login();
+
         return true;
 
     }

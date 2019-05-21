@@ -9,6 +9,7 @@ class User implements iMethods
     public $credits;
     public $address;
     public $image;
+    public $isAdmin;
 
     /**
      * Validates the model's attributes.
@@ -100,7 +101,11 @@ class User implements iMethods
      */
     public function login()
     {
-                //csak sessiont beállít
+        $_SESSION["logged_in"] = true;
+        $_SESSION["username"] = $this->name;
+        $_SESSION["uId"] = $this->id;
+        $_SESSION["isAdmin"] = $this->isAdmin;
+        setcookie("username", $this->name, time () + 1800);
     }
 
     /**
@@ -108,11 +113,9 @@ class User implements iMethods
      */
     public function logout()
     {
-        if (isset($_SESSION["logged_in"])){
-            session_unset();
-            session_destroy();
-            header("location: ../index.php");
-        }
+        session_unset();
+        session_destroy();
+        header("location: /pizza_oop/index.php");
     }
 
     public function register()
@@ -123,7 +126,23 @@ class User implements iMethods
         $checkRegister = $this->getConnection()->query("SELECT username, email FROM users WHERE email = '" . $this->email . "';");
     }
 
+    /**
+     * @return object|stdClass
+     */
+    public function getUserByUsername()
+    {
+        $getUserQuery = "SELECT username FROM users WHERE username = '" . $this->name . "';";
+        $queryResult = Dbconfig::getInstance()->getConnection()->query($getUserQuery)->fetch_object();
+        return $queryResult;
+    }
 
-    //func getUserbyUsername > sql query return obj.
-    //feltöltjük tombot useradataival
+    /**
+     * @return object|stdClass
+     */
+    public function getUserByPassword()
+    {
+        $getUserQuery = "SELECT password FROM users WHERE username = '" . $this->name . "';";
+        $queryResult = Dbconfig::getInstance()->getConnection()->query($getUserQuery)->fetch_object();
+        return $queryResult;
+    }
 }
