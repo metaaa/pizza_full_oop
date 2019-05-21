@@ -5,6 +5,7 @@ class User extends Dbconfig implements iMethods
     private $id;
     private $name;
     private $password;
+    private $email;
     private $credits;
     private $address;
     private $image;
@@ -101,7 +102,7 @@ class User extends Dbconfig implements iMethods
     {
         $this->name = $this->getConnection()->real_escape_string($_POST["username"]);
         $this->password = $this->getConnection()->real_escape_string($_POST["password"]);
-        $checkLogin = $this->getConnection()->query(" SELECT username, password FROM users WHERE username = '" . $this->name . "';");
+        $checkLogin = $this->getConnection()->query(" SELECT id, username, password FROM users WHERE username = '" . $this->name . "';");
         //checks if there was a user with this name or not
         if ($checkLogin->num_rows > 0) {
             $result = $checkLogin->fetch_object();
@@ -135,4 +136,11 @@ class User extends Dbconfig implements iMethods
         }
     }
 
+    public function register()
+    {
+        $this->name = $this->getConnection()->real_escape_string($_POST["username"]);
+        $this->password = $this->getConnection()->real_escape_string($_POST["password"]);
+        $this->email = $this->getConnection()->real_escape_string($_POST["email"]);
+        $checkRegister = $this->getConnection()->query("SELECT username, email FROM users WHERE email = '" . $this->email . "';");
+    }
 }
