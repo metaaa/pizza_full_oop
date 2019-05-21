@@ -58,6 +58,10 @@ spl_autoload_register(function ($className) {
             } else{
                 include ($pagesDir . '/home.php');
             }
+
+            $loginForm = new LoginForm();
+            var_dump($loginForm);
+
             ?>
         </div>
         <div class="actions">

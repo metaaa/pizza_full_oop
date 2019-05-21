@@ -2,10 +2,10 @@
 
 class Dbconfig
 {
-    protected $serverName;
-    protected $dbName;
-    protected $dbUsername;
-    protected $dbPassword;
+    private $serverName;
+    private $dbName;
+    private $dbUsername;
+    private $dbPassword;
 
     private static $instance;
 

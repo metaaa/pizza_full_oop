@@ -1,14 +1,14 @@
 <?php
 
-class User extends Dbconfig implements iMethods
+class User implements iMethods
 {
-    private $id;
-    private $name;
-    private $password;
-    private $email;
-    private $credits;
-    private $address;
-    private $image;
+    public $id;
+    public $name;
+    public $password;
+    public $email;
+    public $credits;
+    public $address;
+    public $image;
 
     /**
      * Validates the model's attributes.
@@ -100,28 +100,7 @@ class User extends Dbconfig implements iMethods
      */
     public function login()
     {
-        $this->name = $this->getConnection()->real_escape_string($_POST["username"]);
-        $this->password = $this->getConnection()->real_escape_string($_POST["password"]);
-        $checkLogin = $this->getConnection()->query(" SELECT id, username, password FROM users WHERE username = '" . $this->name . "';");
-        //checks if there was a user with this name or not
-        if ($checkLogin->num_rows > 0) {
-            $result = $checkLogin->fetch_object();
-            //if both the username and the password match we set the sessions
-            if ($this->password == $result->password){
-                $_SESSION["logged_in"] = true;
-                $_SESSION["username"] = $result->name;
-                $_SESSION["uId"] = $result->id;
-            //set the cookie for half an hour
-                setcookie("username", $result->name, time () + 1800);
-                return true;
-            } else {
-                Flash::error("Wrong username or password!");
-                return false;
-            }
-        } else {
-            Flash::error("Wrong username or password!");
-            return false;
-        }
+                //csak sessiont beállít
     }
 
     /**
@@ -143,4 +122,8 @@ class User extends Dbconfig implements iMethods
         $this->email = $this->getConnection()->real_escape_string($_POST["email"]);
         $checkRegister = $this->getConnection()->query("SELECT username, email FROM users WHERE email = '" . $this->email . "';");
     }
+
+
+    //func getUserbyUsername > sql query return obj.
+    //feltöltjük tombot useradataival
 }
