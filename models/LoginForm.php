@@ -7,33 +7,35 @@ class LoginForm extends User
 
     /**
      * @return bool
-     * kulon szedjuk username es pass validfalasat > check usernam checkPassw
      */
     public function checkUsername()
     {
-        $this->username = $this->getConnection()->real_escape_string($_POST["username"]);
-        $this->password = $this->getConnection()->real_escape_string($_POST["password"]);
-        $checkLogin = $this->getConnection()->query(" SELECT id, username, password FROM users WHERE username = '" . $this->name . "';");
+        $queriedUserdata = $this->getUserByUsername();
+        $this->username = $queriedUserdata;
+//        $this->username = $this->getUserByUsername();
+//        $this->username = $this->getConnection()->real_escape_string($_POST["username"]);
+//        $usernameQuery = $this->getConnection()->query(" SELECT  username FROM users WHERE username = '" . $this->name . "';");
         //checks if there was a user with this name or not
-        if ($checkLogin->num_rows > 0) {
-            $result = $checkLogin->fetch_object();
-            //if both the username and the password match we set the sessions
-            if ($this->password == $result->password){
-
-                return true;
-            } else {
-                Flash::error("Wrong username or password!");
-                return false;
-            }
+        if ($this->username->num_rows > 0) {
+            return true;
         } else {
-            Flash::error("Wrong username or password!");
+            Flash::error("User doesn\'t exist");
             return false;
         }
     }
 
     public function checkPassword()
     {
-        //$this->username =
+        $queriedPassword = $this->getUserByPassword();
+//        $this->username = $this->getConnection()->real_escape_string($_POST["username"]);
+//        $this->password = $this->getConnection()->real_escape_string($_POST["password"]);
+//        $passwordQuery = $this->getConnection()->query("SELECT password FROM users WHERE usename = '" . $this->username . "';")->fetch_object();
+        if ($this->password == $queriedPassword) {
+            return true;
+        } else {
+            Flash::error("Incorrect password!");
+            return false;
+        }
     }
 
     /**
@@ -57,7 +59,6 @@ class LoginForm extends User
         }
 
         if (empty($this->getUserByUsername())) {
-            var_dump("asdasdas");
             Flash::error("User not found!");
             return false;
         }
@@ -70,18 +71,25 @@ class LoginForm extends User
         return true;
     }
 
-
-
+    /**
+     * @return bool
+     */
     public function login()
     {
         if (!$this->validate()) {
             return false;
         }
+        if (!$this->checkUsername()) {
+            return false;
+        }
+        if (!$this->checkPassword()) {
+            return false;
+        }
+
         $user = new User();
-        $user = $this->getUserByUsername();
+
         //amajd $user = User::getuserbyusername
 
         return true;
-
     }
 }

@@ -12,7 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST)) {
         $loginForm->password = $_POST['password'];
 
         if ($loginForm->login()) {
-
+            $_SESSION["username"] = $loginForm->username;
+            $_SESSION["password"] = $loginForm->password;
         }
 
         header("Location: /pizza_oop/index.php?page=login");

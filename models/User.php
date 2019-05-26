@@ -124,6 +124,9 @@ class User implements iMethods
         $this->password = $this->getConnection()->real_escape_string($_POST["password"]);
         $this->email = $this->getConnection()->real_escape_string($_POST["email"]);
         $checkRegister = $this->getConnection()->query("SELECT username, email FROM users WHERE email = '" . $this->email . "';");
+        $checkRegister->
+
+        $this->id = "";
     }
 
     /**
