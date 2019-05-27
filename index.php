@@ -6,8 +6,6 @@ spl_autoload_register(function ($className) {
     include "models/$className.php";
 });
 
-//$db = Dbconfig::getInstance()->getConnection();
-
 ?>
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="css/default.css">
@@ -42,29 +40,28 @@ spl_autoload_register(function ($className) {
         <div class="content">
             <?php
             //set the content for the pages
-            $pagesDir = 'content-files';
-            if (!empty($_GET['page'])) {
-                try {
-                    $pages = scandir($pagesDir,0);
-                    unset($pages[0], $pages[1]);
-                    $page =  $_GET['page'];
-                    if (!in_array($page . '.php', $pages)){
-                        throw new Exception("Page not found...");
+                $pagesDir = 'content-files';
+                if (!empty($_GET['page'])) {
+                    try {
+                        $pages = scandir($pagesDir,0);
+                        unset($pages[0], $pages[1]);
+                        $page =  $_GET['page'];
+                        if (!in_array($page . '.php', $pages)){
+                            throw new Exception("Page not found...");
+                        }
+                        include ($pagesDir . '/' . $page . '.php');
+                    } catch (Exception $exception) {
+                        echo $exception->getMessage();
                     }
-                    include ($pagesDir . '/' . $page . '.php');
-                } catch (Exception $exception) {
-                    echo $exception->getMessage();
+                } else{
+                    include ($pagesDir . '/home.php');
                 }
-            } else{
-                include ($pagesDir . '/home.php');
-            }
-
-            $loginForm = new LoginForm();
-
             ?>
         </div>
         <div class="actions">
-
+            <?php
+                include "content-files/login.php";
+            ?>
         </div>
     </div>
     <div class="footer"></div>

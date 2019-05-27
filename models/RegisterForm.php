@@ -1,9 +1,10 @@
 <?php
 
-class LoginForm
+class RegisterForm
 {
     public $username;
     public $password;
+    public $email;
 
     /**
      * @return bool
@@ -12,8 +13,8 @@ class LoginForm
     {
         $user = new User();
         $this->username = $user->getUserByUsername();
-        if (empty($this->username)) {
-            Flash::error("User doesn't exist");
+        if (!empty($this->username)) {
+            Flash::error("Username is taken!");
             return false;
         }
         return true;
@@ -24,13 +25,24 @@ class LoginForm
      */
     public function checkPassword()
     {
-        $user = new User();
-        $this->password = $user->getUserByPassword();
-        if ($this->password !== $_POST["password"]) {
-            Flash::error("Incorrect password!");
+            if (strlen($_POST["password"]) < 5) {
+            Flash::error("Too short password!");
             return false;
         }
         Flash::error("logged in");
+        return true;
+    }
+
+    public function checkEmail()
+    {
+        if (!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^",$this->email))
+        {
+            return false;
+        }
+        //checks for presence of @ and .
+        if (!stristr($this->email,"@") OR !stristr($this->email,".")){
+            return false;
+        }
         return true;
     }
 
@@ -50,8 +62,18 @@ class LoginForm
             return false;
         }
 
+        if (empty($this->email)) {
+            Flash::error("Fill the email!");
+            return false;
+        }
+
         if (strlen($this->password) < 4) {
             Flash::error("Too short password!");
+            return false;
+        }
+
+        if (!$this->checkEmail()){
+            Flash::error("Invalid email address!");
             return false;
         }
 
@@ -63,12 +85,23 @@ class LoginForm
             return false;
         }
 
+        if (empty($user->getUserByEmail())) {
+            return false;
+        }
+
         return true;
     }
+
+    public function createUser()
+    {
+        $createQuery = "INSERT INTO users ('id', 'username', 'email', 'password') VALUES ('" . NULL . "', '" . $this->username . "', '" . $this->email . "', '" . $this->password . "');";
+        $resultQuery = Dbconfig::getInstance()->getConnection()->query($createQuery);
+    }
+
     /**
      * @return bool
      */
-    public function login()
+    public function register()
     {
         if (!$this->validate()) {
             return false;
@@ -79,6 +112,12 @@ class LoginForm
         if (!$this->checkPassword()) {
             return false;
         }
+        if(!$this->checkEmail()) {
+            return false;
+        }
+
+        $this->createUser();
+
         return true;
     }
 
