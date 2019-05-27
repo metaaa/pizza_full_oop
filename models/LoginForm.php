@@ -25,8 +25,6 @@ class LoginForm
         $user = new User();
         $this->password = $user->getUserByPassword();
         if ($this->password !== $_POST["password"]) {
-
-            var_dump($this->password); die;
             Flash::error("Incorrect password!");
             return false;
         }
