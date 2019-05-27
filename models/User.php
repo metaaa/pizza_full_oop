@@ -132,10 +132,9 @@ class User implements iMethods
      */
     public function getUserByUsername()
     {
-        $this->name = mysqli_real_escape_string($_POST["username"]);
-        $getUserQuery = "SELECT username FROM users WHERE username = '" . $this->name . "';";
+        $this->name = mysqli_real_escape_string(Dbconfig::getInstance()->getConnection(), $_POST["username"]);
+        $getUserQuery = "SELECT username FROM users WHERE username = '" . $_POST["username"] . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($getUserQuery)->fetch_object();
-
         return $queryResult;
     }
 
@@ -144,8 +143,8 @@ class User implements iMethods
      */
     public function getUserByPassword()
     {
-        $getUserQuery = "SELECT password FROM users WHERE username = '" . $_POST["password"] . "';";
+        $getUserQuery = "SELECT password FROM users WHERE username = '" . $_POST["username"] . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($getUserQuery)->fetch_object();
-        return $queryResult;
+        return get_object_vars($queryResult)["password"];
     }
 }
