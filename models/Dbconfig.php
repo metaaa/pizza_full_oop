@@ -29,7 +29,7 @@ class Dbconfig
      */
     private function __construct()
     {
-        $config = require "connection.php";
+        $config = require $_SERVER['DOCUMENT_ROOT'] . "/pizza_full_oop/connection.php";
         foreach ($config as $key => $value){
             $this->$key = $value;
         }

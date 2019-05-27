@@ -11,6 +11,7 @@ class User implements iMethods
     public $image;
     public $isAdmin;
 
+
     /**
      * Validates the model's attributes.
      * @return bool
@@ -115,18 +116,15 @@ class User implements iMethods
     {
         session_unset();
         session_destroy();
-        header("location: /pizza_oop/index.php");
+        header("location: /pizza_full_oop/index.php");
     }
 
     public function register()
     {
-        $this->name = $this->getConnection()->real_escape_string($_POST["username"]);
-        $this->password = $this->getConnection()->real_escape_string($_POST["password"]);
-        $this->email = $this->getConnection()->real_escape_string($_POST["email"]);
-        $checkRegister = $this->getConnection()->query("SELECT username, email FROM users WHERE email = '" . $this->email . "';");
-        $checkRegister->
-
-        $this->id = "";
+        $this->name = Dbconfig::getInstance()->getConnection()->real_escape_string($_POST["username"]);
+        $this->password = Dbconfig::getInstance()->getConnection()->real_escape_string($_POST["password"]);
+        $this->email = Dbconfig::getInstance()->getConnection()->real_escape_string($_POST["email"]);
+        $checkRegister = Dbconfig::getInstance()->getConnection()->query("SELECT username, email FROM users WHERE email = '" . $this->email . "';");
     }
 
     /**
@@ -134,8 +132,10 @@ class User implements iMethods
      */
     public function getUserByUsername()
     {
+        $this->name = mysqli_real_escape_string($_POST["username"]);
         $getUserQuery = "SELECT username FROM users WHERE username = '" . $this->name . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($getUserQuery)->fetch_object();
+
         return $queryResult;
     }
 
@@ -144,7 +144,7 @@ class User implements iMethods
      */
     public function getUserByPassword()
     {
-        $getUserQuery = "SELECT password FROM users WHERE username = '" . $this->name . "';";
+        $getUserQuery = "SELECT password FROM users WHERE username = '" . $_POST["password"] . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($getUserQuery)->fetch_object();
         return $queryResult;
     }

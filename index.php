@@ -60,7 +60,6 @@ spl_autoload_register(function ($className) {
             }
 
             $loginForm = new LoginForm();
-            var_dump($loginForm);
 
             ?>
         </div>

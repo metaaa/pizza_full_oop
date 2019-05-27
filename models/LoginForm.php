@@ -1,16 +1,18 @@
 <?php
 
-class LoginForm extends User
+class LoginForm
 {
     public $username;
     public $password;
+
 
     /**
      * @return bool
      */
     public function checkUsername()
     {
-        $queriedUserdata = $this->getUserByUsername();
+        $user = new User();
+        $queriedUserdata = $user->getUserByUsername();
         $this->username = $queriedUserdata;
 //        $this->username = $this->getUserByUsername();
 //        $this->username = $this->getConnection()->real_escape_string($_POST["username"]);
@@ -26,7 +28,8 @@ class LoginForm extends User
 
     public function checkPassword()
     {
-        $queriedPassword = $this->getUserByPassword();
+        $user = new User();
+        $queriedPassword = $user->getUserByPassword();
 //        $this->username = $this->getConnection()->real_escape_string($_POST["username"]);
 //        $this->password = $this->getConnection()->real_escape_string($_POST["password"]);
 //        $passwordQuery = $this->getConnection()->query("SELECT password FROM users WHERE usename = '" . $this->username . "';")->fetch_object();
@@ -43,6 +46,7 @@ class LoginForm extends User
      */
     public function validate()
     {
+        $user = new User();
         if (empty($this->username)) {
             Flash::error("Fill the username!");
             return false;
@@ -53,17 +57,17 @@ class LoginForm extends User
             return false;
         }
 
-        if (strlen($this->password) < 6) {
+        if (strlen($this->password) < 4) {
             Flash::error("Too short password!");
             return false;
         }
 
-        if (empty($this->getUserByUsername())) {
+        if (empty($user->getUserByUsername())) {
             Flash::error("User not found!");
             return false;
         }
 
-        if (empty($this->getUserByPassword())) {
+        if (empty($user->getUserByPassword())) {
             Flash::error("Wrong Password!");
             return false;
         }
@@ -85,11 +89,12 @@ class LoginForm extends User
         if (!$this->checkPassword()) {
             return false;
         }
-
-        $user = new User();
-
+        //$user = new User();
+        //$user = User::login();
         //amajd $user = User::getuserbyusername
+
 
         return true;
     }
+
 }
