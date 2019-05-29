@@ -151,7 +151,8 @@ class User implements iMethods
     public function getUserByEmail()
     {
         $getUserQuery = "SELECT email FROM users WHERE username = '" . $_POST["username"] . "';";
-        $queryResult = Dbconfig::getInstance()->getConnection()->query($getUserQuery)->fetch_object();
+        $queryResult = Dbconfig::getInstance()->getConnection()->query($getUserQuery);
+        //var_dump($queryResult); die;
         return get_object_vars($queryResult)["email"];
     }
 }

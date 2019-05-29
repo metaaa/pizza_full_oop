@@ -60,7 +60,7 @@ spl_autoload_register(function ($className) {
         </div>
         <div class="actions">
             <?php
-                include "content-files/login.php";
+                include "forms/login.php";
             ?>
         </div>
     </div>

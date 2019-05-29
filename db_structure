@@ -1,0 +1,29 @@
+CREATE DATABASE pizza_site;
+
+CREATE TABLE `users` (
+                       `uId` INT unsigned NOT NULL AUTO_INCREMENT,
+                       `uName` VARCHAR(255) NOT NULL,
+                       `uEmail` VARCHAR(255) NOT NULL,
+                       `uPassword` VARCHAR(255) NOT NULL,
+                       `uCredits` INT unsigned DEFAULT NULL,
+                       `uAvatar` VARCHAR(255) NOT NULL DEFAULT '/images/avatars/default.png',
+                       `uCreatedAt` TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+                       `isAdmin` INT unsigned DEFAULT NULL,
+                       PRIMARY KEY (`uId`)
+);
+
+CREATE TABLE `pizzas` (
+                        `pId` INT unsigned NOT NULL AUTO_INCREMENT,
+                        `pName` VARCHAR(255) NOT NULL,
+                        `pDescription` TEXT NOT NULL,
+                        `pPrice` SMALLINT NOT NULL,
+                        `pImage` INT unsigned DEFAULT '/images/pizzas/default.png',
+                        PRIMARY KEY (`pId`)
+);
+
+CREATE TABLE `menus` (
+                       `mId` INT unsigned NOT NULL AUTO_INCREMENT,
+                       `mName` VARCHAR(255) NOT NULL,
+                       `mLink` VARCHAR(255) NOT NULL,
+                       PRIMARY KEY (`mId`)
+);
