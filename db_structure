@@ -8,6 +8,7 @@ CREATE TABLE `users` (
                        `uCredits` INT unsigned DEFAULT NULL,
                        `uAvatar` VARCHAR(255) NOT NULL DEFAULT '/images/avatars/default.png',
                        `uCreatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                       `uLastSeen` TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP,
                        `isAdmin` INT unsigned DEFAULT NULL,
                        PRIMARY KEY (`uId`)
 );

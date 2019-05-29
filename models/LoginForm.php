@@ -4,6 +4,7 @@ class LoginForm
 {
     public $username;
     public $password;
+    public $id;
 
     /**
      * @return bool
