@@ -1,4 +1,4 @@
-CREATE DATABASE pizza_site;
+CREATE DATABASE pizza;
 
 CREATE TABLE `users` (
                        `uId` INT unsigned NOT NULL AUTO_INCREMENT,
@@ -7,7 +7,7 @@ CREATE TABLE `users` (
                        `uPassword` VARCHAR(255) NOT NULL,
                        `uCredits` INT unsigned DEFAULT NULL,
                        `uAvatar` VARCHAR(255) NOT NULL DEFAULT '/images/avatars/default.png',
-                       `uCreatedAt` TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+                       `uCreatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                        `isAdmin` INT unsigned DEFAULT NULL,
                        PRIMARY KEY (`uId`)
 );
@@ -16,8 +16,8 @@ CREATE TABLE `pizzas` (
                         `pId` INT unsigned NOT NULL AUTO_INCREMENT,
                         `pName` VARCHAR(255) NOT NULL,
                         `pDescription` TEXT NOT NULL,
-                        `pPrice` SMALLINT NOT NULL,
-                        `pImage` INT unsigned DEFAULT '/images/pizzas/default.png',
+                        `pPrice` SMALLINT unsigned NOT NULL,
+                        `pImage` VARCHAR(255) NOT NULL DEFAULT '/images/pizzas/default.png',
                         PRIMARY KEY (`pId`)
 );
 

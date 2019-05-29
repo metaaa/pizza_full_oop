@@ -94,8 +94,8 @@ class RegisterForm
 
     public function createUser()
     {
-        $this->username = mysqli_real_escape_string($_POST['username']);
-        $createQuery = "INSERT INTO `users` (username, email, password) VALUES ('" . $this->username . "', '" . $this->email . "', '" . $this->password . "');";
+        $this->username = $_POST['username'];
+        $createQuery = "INSERT INTO `users` (uName, uEmail, uPassword) VALUES ('" . $this->username . "', '" . $this->email . "', '" . $this->password . "');";
         $resultQuery = Dbconfig::getInstance()->getConnection()->real_query($createQuery);
         //var_dump($resultQuery); die;
         if ($resultQuery === false){

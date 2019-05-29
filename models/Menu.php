@@ -3,7 +3,7 @@
 class Menu extends Dbconfig
 {
     public static function countRows(){
-        $countQuery = "SELECT COUNT(mId) FROM menu";
+        $countQuery = "SELECT COUNT(mId) FROM menus";
         $countResult = Dbconfig::getInstance()->getConnection()->query($countQuery)->fetch_array();
         //print_r($countResult);
         return (100 / $countResult[0]);
@@ -11,7 +11,7 @@ class Menu extends Dbconfig
 
     public static function getMenus()
     {
-        $menuQuery = "SELECT * FROM menu";
+        $menuQuery = "SELECT * FROM menus";
         $menuQueryResult = Dbconfig::getInstance()->getConnection()->query($menuQuery);
         echo "<ul>";
         while ($row = $menuQueryResult->fetch_assoc()){

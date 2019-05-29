@@ -133,7 +133,7 @@ class User implements iMethods
     public function getUserByUsername()
     {
         $this->name = mysqli_real_escape_string(Dbconfig::getInstance()->getConnection(), $_POST["username"]);
-        $getUserQuery = "SELECT username FROM users WHERE username = '" . $_POST["username"] . "';";
+        $getUserQuery = "SELECT uName FROM users WHERE uName = '" . $_POST["username"] . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($getUserQuery)->fetch_object();
         return $queryResult;
     }
@@ -143,14 +143,14 @@ class User implements iMethods
      */
     public function getUserByPassword()
     {
-        $getUserQuery = "SELECT password FROM users WHERE username = '" . $_POST["username"] . "';";
+        $getUserQuery = "SELECT uPassword FROM users WHERE uName = '" . $_POST["username"] . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($getUserQuery)->fetch_object();
         return get_object_vars($queryResult)["password"];
     }
 
     public function getUserByEmail()
     {
-        $getUserQuery = "SELECT email FROM users WHERE username = '" . $_POST["username"] . "';";
+        $getUserQuery = "SELECT uEmail FROM users WHERE uName = '" . $_POST["username"] . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($getUserQuery);
         //var_dump($queryResult); die;
         return get_object_vars($queryResult)["email"];
