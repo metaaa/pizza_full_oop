@@ -2,9 +2,13 @@
 
 class LoginForm
 {
+    public $id;
     public $username;
     public $password;
-    public $id;
+    public $isAdmin;
+    public $rememberMe;
+
+
 
     /**
      * @return bool
@@ -26,12 +30,25 @@ class LoginForm
     public function checkPassword()
     {
         $user = new User();
-        $this->password = $user->getUserByPassword();
+        $this->password = $user->getPassword();
         if ($this->password !== $_POST["password"]) {
             Flash::error("Incorrect password!");
             return false;
         }
-        Flash::error("logged in");
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function checkAdmin()
+    {
+        $user = new User();
+        $this->isAdmin = $user->getIsAdmin();
+        if ($this->isAdmin == NULL){
+            Flash::error("not an admin");
+            return false;
+        }
         return true;
     }
 
@@ -60,7 +77,7 @@ class LoginForm
             return false;
         }
 
-        if (empty($user->getUserByPassword())) {
+        if (empty($user->getPassword())) {
             return false;
         }
 
@@ -80,6 +97,7 @@ class LoginForm
         if (!$this->checkPassword()) {
             return false;
         }
+
         return true;
     }
 

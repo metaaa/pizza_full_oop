@@ -10,13 +10,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST)) {
         $loginForm = new LoginForm();
         $loginForm->username = $_POST['username'];
         $loginForm->password = $_POST['password'];
+        $loginForm->rememberMe = $_POST['remember_me'];
 
         if ($loginForm->login()) {
             $_SESSION["logged_in"] = true;
             $_SESSION["uId"] = $loginForm->id;
             $_SESSION["username"] = $loginForm->username;
-        }
 
+            if ($loginForm->checkAdmin()){
+                $_SESSION["is_admin"] = $loginForm->isAdmin;
+            }
+
+        }
+        //var_dump($_SESSION); die;
         header("Location: /pizza_full_oop/index.php?page=home");
         exit();
     }
