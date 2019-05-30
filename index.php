@@ -12,10 +12,6 @@ spl_autoload_register(function ($className) {
 <link href="favicon.ico" rel="icon" type="image/x-icon" />
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 <html>
 
 
@@ -74,5 +70,6 @@ spl_autoload_register(function ($className) {
     </div>
     <div class="footer"></div>
     </div>
+<script src="js/login-form.js"></script>
 </body>
 </html>

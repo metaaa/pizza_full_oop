@@ -5,7 +5,7 @@
 ?>
 <div class="card">
     <article class="card-body">
-        <a href="" class="float-right btn btn-outline-primary">Sign up</a>
+        <a href="#" id="signup" class="float-right btn btn-outline-primary">Sign up</a>
         <h4 class="card-title mb-4 mt-1">Sign in</h4>
         <hr>
         <?php
@@ -49,3 +49,9 @@
         </form>
     </article>
 </div> <!-- card -->
+<script type="text/javascript">
+    $(".card a").click(function() {
+        $("a").load("register.php");
+    });
+    $(".card a").load("register.php");
+</script>
