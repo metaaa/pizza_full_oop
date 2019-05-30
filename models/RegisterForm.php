@@ -2,18 +2,27 @@
 
 class RegisterForm
 {
-    public $username;
-    public $password;
+    public $name;
     public $email;
+    public $password;
+    protected $user;
+
+    protected function getUser()
+    {
+        if ($this->user === null) {
+            $this->user = new User();
+            $this->name = $this->user->getUserByUsername();
+            $this->email = $this->user->getUserByEmail();
+        }
+        return $this->user;
+    }
 
     /**
      * @return bool
      */
     public function checkUsername()
     {
-        $user = new User();
-        $this->username = $user->getUserByUsername();
-        if (!empty($this->username)) {
+        if (!empty($this->name)) {
             Flash::error("Username is taken!");
             return false;
         }
@@ -25,7 +34,7 @@ class RegisterForm
      */
     public function checkPassword()
     {
-        $this->password = $_POST["password"];
+        $this->password =  $_POST["password"];
         if (strlen($this->password) < 5) {
             Flash::error("Too short password!");
             return false;
@@ -36,7 +45,6 @@ class RegisterForm
     public function checkEmail()
     {
         $this->email = $_POST["email"];
-          //var_dump($this->email); die;
         if (!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^",$this->email))
         {
             return false;

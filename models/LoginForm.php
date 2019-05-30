@@ -3,19 +3,33 @@
 class LoginForm
 {
     public $id;
-    public $username;
+    public $name;
+    public $email;
     public $password;
+    public $credits;
+    public $avatar;
+    public $createdAt;
+    public $lastSeen;
     public $isAdmin;
     public $rememberMe;
     protected $user;
 
-   /*protected function getUser()
+   protected function getUser()
     {
         if ($this->user === null) {
-            $this->user = User::getUserByUsername($this->username);
+            $this->user = new User();
+            $this->id = $this->user->getId();
+            $this->name = $this->user->getUserByUsername();
+            $this->email = $this->user->getUserByEmail();
+            $this->password = $this->user->getPassword();
+            $this->credits = $this->user->getCredits();
+            $this->avatar = $this->user->getAvatar();
+            $this->createdAt = $this->user->getCreatedAt();
+            $this->lastSeen = $this->user->getLastSeen();
+            $this->isAdmin = $this->user->getIsAdmin();
         }
         return $this->user;
-    }*/
+    }
 
 
     /**
@@ -23,9 +37,7 @@ class LoginForm
      */
     public function checkUsername()
     {
-        $user = new User();
-        $this->username = $user->getUserByUsername();
-        if (empty($this->username)) {
+        if (empty($this->name)) {
             Flash::error("User doesn't exist");
             return false;
         }
@@ -37,9 +49,7 @@ class LoginForm
      */
     public function checkPassword()
     {
-        $user = new User();
-        $this->password = $user->getPassword();
-        if ($this->password !== $_POST["password"]) {
+        if ($this->password !== Dbconfig::getInstance()->getConnection()->real_escape_string($_POST["password"])) {
             Flash::error("Incorrect password!");
             return false;
         }
@@ -51,8 +61,6 @@ class LoginForm
      */
     public function checkAdmin()
     {
-        $user = new User();
-        $this->isAdmin = $user->getIsAdmin();
         if ($this->isAdmin == NULL){
             Flash::error("not an admin");
             return false;
@@ -66,7 +74,8 @@ class LoginForm
     public function validate()
     {
         //$user = new User();
-        if (empty($this->username)) {
+
+        if (empty($this->name)) {
             Flash::error("Fill the username!");
             return false;
         }
@@ -81,14 +90,6 @@ class LoginForm
             return false;
         }
 
-        /*if (empty($user->getUserByUsername())) {
-            return false;
-        }
-
-        if (empty($user->getPassword())) {
-            return false;
-        }*/
-
         return true;
     }
     /**
@@ -96,6 +97,8 @@ class LoginForm
      */
     public function login()
     {
+        $this->getUser();
+
         if (!$this->validate()) {
             return false;
         }

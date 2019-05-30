@@ -11,18 +11,17 @@ class User
     public $createdAt;
     public $lastSeen;
     public $isAdmin;
-    protected $user;
 
     /**
      * @return mixed
      */
-    public static function getUserByUsername()
+    public function getUserByUsername()
     {
-        $name = mysqli_real_escape_string(Dbconfig::getInstance()->getConnection(), $_POST["username"]);
-        $getUserQuery = "SELECT uName FROM users WHERE uName = '" . $name . "';";
+        $this->name = mysqli_real_escape_string(Dbconfig::getInstance()->getConnection(), $_POST["username"]);
+        $getUserQuery = "SELECT uName FROM users WHERE uName = '" . $this->name . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($getUserQuery)->fetch_object();
-        $name = get_object_vars($queryResult)["uName"];
-        return $name;
+        $this->name = get_object_vars($queryResult)["uName"];
+        return $this->name;
     }
 
     /**
@@ -64,7 +63,7 @@ class User
      */
     public function getCredits()
     {
-        $getCreditsQuery = "SELECT uCredits FROM users WHERE uId = '" . $this->id . "';";
+        $getCreditsQuery = "SELECT uCredits FROM users WHERE uId = '" . $this->getId() . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($getCreditsQuery)->fetch_object();
         $this->credits = get_object_vars($queryResult)["uCredits"];
         return $this->credits;
@@ -75,7 +74,7 @@ class User
      */
     public function getAvatar()
     {
-        $getAvatarQuery = "SELECT uAvatar FROM users WHERE uId = '" . $this->id . "';";
+        $getAvatarQuery = "SELECT uAvatar FROM users WHERE uId = '" . $this->getId() . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($getAvatarQuery)->fetch_object();
         $this->avatar = get_object_vars($queryResult)["uAvatar"];
         return $this->avatar;
@@ -86,7 +85,7 @@ class User
      */
     public function getCreatedAt()
     {
-        $getCreatedAtQuery = "SELECT uCreatedAt FROM users WHERE uId = '" . $this->id . "';";
+        $getCreatedAtQuery = "SELECT uCreatedAt FROM users WHERE uId = '" . $this->getId() . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($getCreatedAtQuery)->fetch_object();
         $this->createdAt = get_object_vars($queryResult)["uCreatedAt"];
         return $this->createdAt;
@@ -97,7 +96,7 @@ class User
      */
     public function getLastSeen()
     {
-        $getLastSeenQuery = "SELECT uLastSeen FROM users WHERE uId = '" . $this->id . "';";
+        $getLastSeenQuery = "SELECT uLastSeen FROM users WHERE uId = '" . $this->getId() . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($getLastSeenQuery)->fetch_object();
         $this->lastSeen = get_object_vars($queryResult)["uLastSeen"];
         return $this->lastSeen;
@@ -108,8 +107,8 @@ class User
      */
     public function getIsAdmin()
     {
-        $isAdminQuery = "SELECT isAdmin FROM users WHERE uId = '" . $this->id . "';";
-        $queryResult = Dbconfig::getInstance()->getConnection()->query($isAdminQuery);
+        $isAdminQuery = "SELECT isAdmin FROM users WHERE uId = '" . $this->getId() . "';";
+        $queryResult = Dbconfig::getInstance()->getConnection()->query($isAdminQuery)->fetch_object();
         $this->isAdmin = get_object_vars($queryResult)["isAdmin"];
         return $this->isAdmin;
     }

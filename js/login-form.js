@@ -1,3 +1,5 @@
 $('.card-body a').click(function(){
-    $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+     $( ".card-body" ).load( "forms/register.php" );
+    // $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
 });
+

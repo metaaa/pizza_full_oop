@@ -5,7 +5,7 @@
 ?>
 <div class="card">
     <article class="card-body">
-        <a href="#" id="signup" class="float-right btn btn-outline-primary">Sign up</a>
+        <a href="#" id="signUp" class="float-right btn btn-outline-primary">Sign up</a>
         <h4 class="card-title mb-4 mt-1">Sign in</h4>
         <hr>
         <?php
@@ -44,16 +44,8 @@
                 <label> <input type="checkbox" name="remember_me"> Save password </label>
             </div> <!-- remember me option -->
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
             </div> <!-- submit button -->
         </form>
     </article>
 </div> <!-- card -->
-<script type="text/javascript">
-    $(".card a").click(function() {
-        $("a").load("register.php");
-    });
-    $(".card a").load("register.php");
-</script>
-
-https://bootsnipp.com/snippets/j6r4X
