@@ -16,13 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST)) {
             $_SESSION["logged_in"] = true;
             $_SESSION["uId"] = $loginForm->id;
             $_SESSION["username"] = $loginForm->username;
-
-            if ($loginForm->checkAdmin()){
-                $_SESSION["is_admin"] = $loginForm->isAdmin;
-            }
+            Flash::success("You have logged in!");
+//            if ($loginForm->checkAdmin()){
+//                $_SESSION["is_admin"] = $loginForm->isAdmin;
+//            }
 
         }
-        //var_dump($_SESSION); die;
         header("Location: /pizza_full_oop/index.php?page=home");
         exit();
     }

@@ -6,7 +6,7 @@
 }
 
 .header {
-    height: 200px;
+    /*height: 200px;*/
     grid-area: header;
     background-image: url("../images/header-image/pizza.png");
     background-repeat: no-repeat;

@@ -10,7 +10,15 @@ spl_autoload_register(function ($className) {
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="css/default.css">
 <link href="favicon.ico" rel="icon" type="image/x-icon" />
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 <html>
+
+
 <head>
     <title>order pizza by metaaa</title>
 </head>
@@ -21,20 +29,20 @@ spl_autoload_register(function ($className) {
             <?= Menu::getMenus(); ?>
     </div>
     <?php
-        if (Flash::getSuccess()) { ?>
+/*        if (Flash::getSuccess()) { */?><!--
             <div class="flash">
-                <?= Flash::getSuccess() ?>
+                <?/*= Flash::getSuccess() */?>
             </div>
     <?php
-        }
-        if (Flash::getError()) { ?>
+/*        }
+        if (Flash::getError()) { */?>
         <div class="flash">
-            <?= Flash::getError() ?>
+            <?/*= Flash::getError() */?>
         </div>
-    <?php
-        }
+    --><?php
+/*        }
         Flash::flush()
-    ?>
+    */?>
 
     <div class="body-container">
         <div class="content">

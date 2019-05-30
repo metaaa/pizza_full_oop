@@ -7,7 +7,15 @@ class LoginForm
     public $password;
     public $isAdmin;
     public $rememberMe;
+    protected $user;
 
+   /*protected function getUser()
+    {
+        if ($this->user === null) {
+            $this->user = User::getUserByUsername($this->username);
+        }
+        return $this->user;
+    }*/
 
 
     /**
@@ -57,7 +65,7 @@ class LoginForm
      */
     public function validate()
     {
-        $user = new User();
+        //$user = new User();
         if (empty($this->username)) {
             Flash::error("Fill the username!");
             return false;
@@ -73,13 +81,13 @@ class LoginForm
             return false;
         }
 
-        if (empty($user->getUserByUsername())) {
+        /*if (empty($user->getUserByUsername())) {
             return false;
         }
 
         if (empty($user->getPassword())) {
             return false;
-        }
+        }*/
 
         return true;
     }
@@ -91,9 +99,11 @@ class LoginForm
         if (!$this->validate()) {
             return false;
         }
+
         if (!$this->checkUsername()) {
             return false;
         }
+
         if (!$this->checkPassword()) {
             return false;
         }

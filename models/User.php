@@ -1,6 +1,6 @@
 <?php
 
-class User implements iMethods
+class User
 {
     public $id;
     public $name;
@@ -11,101 +11,18 @@ class User implements iMethods
     public $createdAt;
     public $lastSeen;
     public $isAdmin;
-
-
-    /**
-     * Validates the model's attributes.
-     * @return bool
-     */
-    public function validate()
-    {
-        if (empty($this->name) || empty($this->credits) || empty($this->address) || empty($this->image)){
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    /**
-     * Checks whether the current model is a freshly created one or not.
-     * @return bool
-     */
-    public function isNewRecord()
-    {
-        return empty($this->id);
-    }
-
-    /**
-     * Insert a user record to database.
-     *
-     * @return bool|mysqli_result
-     */
-    public function insert()
-    {
-        $addUserQuery = "INSERT INTO users (uId, uName, uCredits, uAddress, uImage) VALUES (null,'$this->name', '$this->credits', '$this->address', '$this->image')";
-        $addResult = Dbconfig::getInstance()->getConnection()->query($addUserQuery);
-        return $addResult;
-    }
-
-    /**
-     * Removes a single user record from database.
-     * @return bool|mysqli_result
-     */
-    public function remove()
-    {
-        $removeUserQuery = "DELETE FROM users WHERE uId = '$this->id'";
-        $removeResult = Dbconfig::getInstance()->getConnection()->query($removeUserQuery);
-
-        return $removeResult;
-    }
-
-    /**
-     * Updates a user record in database.
-     *
-     * @return bool
-     */
-    public function update()
-    {
-        $columns = array('name', 'credits', 'address', 'image');
-        $values = $setValues = array();
-        foreach ($columns as $column){
-            if (isset($this->$column)){
-
-            }
-        }
-
-        //$updatePizzaQuery = "UPDATE pizzas SET name='$this->name' price='$this->price', ";
-    }
-
-
-    /**
-     * Saves the current instance of user to database.
-     *
-     * @return bool|mysqli_result
-     */
-    public function save()
-    {
-        if ($this->validate()) {
-            if ($this->isNewRecord()) {
-                return $this->insert();
-            } else {
-                return $this->update();
-            }
-        }
-
-        return false;
-    }
+    protected $user;
 
     /**
      * @return mixed
      */
-    public function getUserByUsername()
+    public static function getUserByUsername()
     {
-        $this->name = mysqli_real_escape_string(Dbconfig::getInstance()->getConnection(), $_POST["username"]);
-        $getUserQuery = "SELECT uName FROM users WHERE uName = '" . $this->name . "';";
+        $name = mysqli_real_escape_string(Dbconfig::getInstance()->getConnection(), $_POST["username"]);
+        $getUserQuery = "SELECT uName FROM users WHERE uName = '" . $name . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($getUserQuery)->fetch_object();
-        $this->name = get_object_vars($queryResult)["uName"];
-        return $this->name;
+        $name = get_object_vars($queryResult)["uName"];
+        return $name;
     }
 
     /**
@@ -125,7 +42,7 @@ class User implements iMethods
      */
     public function getId()
     {
-        $getIdQuery = "SELECT uId FROM users WHERE uName = '" . $this->name . "';";
+        $getIdQuery = "SELECT uId FROM users WHERE uName = '" . $this->getUserByUsername() . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($getIdQuery)->fetch_object();
         $this->id = get_object_vars($queryResult)["uId"];
         return $this->id;
@@ -136,7 +53,7 @@ class User implements iMethods
      */
     public function getPassword()
     {
-        $getPasswordQuery = "SELECT uPassword FROM users WHERE uId = '" . $this->id . "';";
+        $getPasswordQuery = "SELECT uPassword FROM users WHERE uId = '" . $this->getId() . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($getPasswordQuery)->fetch_object();
         $this->password = get_object_vars($queryResult)["uPassword"];
         return $this->password;
@@ -194,9 +111,71 @@ class User implements iMethods
         $isAdminQuery = "SELECT isAdmin FROM users WHERE uId = '" . $this->id . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($isAdminQuery);
         $this->isAdmin = get_object_vars($queryResult)["isAdmin"];
-        var_dump($this); die;
         return $this->isAdmin;
     }
+
+
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @param mixed $credits
+     */
+    public function setCredits($credits)
+    {
+        $this->credits = $credits;
+    }
+
+    /**
+     * @param mixed $avatar
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+    }
+
+    /**
+     * @param mixed $lastSeen
+     */
+    public function setLastSeen($lastSeen)
+    {
+        $this->lastSeen = $lastSeen;
+    }
+
+    /**
+     * @param mixed $isAdmin
+     */
+    public function setIsAdmin($isAdmin)
+    {
+        $this->isAdmin = $isAdmin;
+    }
+
+
+
+
+
 
 
 }
