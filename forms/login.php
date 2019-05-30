@@ -55,3 +55,5 @@
     });
     $(".card a").load("register.php");
 </script>
+
+https://bootsnipp.com/snippets/j6r4X
