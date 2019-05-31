@@ -87,7 +87,7 @@ class RegisterForm
             return false;
         }
 
-        if (!empty($user->getUserByUsername())) {
+        if (!empty($user->findByName($this->name))) {
             Flash::error("Username is taken!");
             return false;
         }
@@ -103,7 +103,7 @@ class RegisterForm
     public function createUser()
     {
         $this->username = $_POST['username'];
-        $createQuery = "INSERT INTO `users` (uName, uEmail, uPassword) VALUES ('" . $this->username . "', '" . $this->email . "', '" . $this->password . "');";
+        $createQuery = "INSERT INTO `users` (uName, uEmail, uPassword) VALUES ('" . $this->username . "', '" . $this->email . "', '" . crypt($this->password) . "');";
         $resultQuery = Dbconfig::getInstance()->getConnection()->real_query($createQuery);
         //var_dump($resultQuery); die;
         if ($resultQuery === false){

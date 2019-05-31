@@ -2,27 +2,62 @@
 
 class User
 {
-    public $id;
-    public $name;
-    public $email;
-    public $password;
-    public $credits;
-    public $avatar;
-    public $createdAt;
-    public $lastSeen;
+    public $uId;
+    public $uName;
+    public $uEmail;
+    public $uPassword;
+    public $uCredits;
+    public $uAvatar;
+    public $uCreatedAt;
+    public $uLastSeen;
     public $isAdmin;
 
     /**
+     * @param string $name
      * @return mixed
      */
-    public function getUserByUsername()
+    public static function findByName($name)
     {
-        $this->name = mysqli_real_escape_string(Dbconfig::getInstance()->getConnection(), $_POST["username"]);
-        $getUserQuery = "SELECT uName FROM users WHERE uName = '" . $this->name . "';";
+        $getUserQuery = "SELECT * FROM users WHERE uName = '" . $name . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($getUserQuery)->fetch_object();
-        $this->name = get_object_vars($queryResult)["uName"];
-        return $this->name;
+        if ($queryResult == null) {
+            return null;
+        }
+        $queryResult = get_object_vars($queryResult);
+
+        $user = new User();
+        
+        foreach ($queryResult as $key => $item) {
+
+            $user->$key = $item;
+        }
+
+
+        return $user;
+
     }
+
+
+
+    /**
+     * @param $password
+     * @return bool
+     */
+    public function checkPassword($password)
+    {
+        return $this->password === crypt($password, $this->password);
+    }
+
+    public function login()
+    {
+        $_SESSION["logged_in"] = true;
+        $_SESSION["uId"] = $this->id;
+        $_SESSION["username"] =  $this->name;
+        $_SESSION["isAdmin"] = true;
+        return true;
+
+    }
+
     public static function getName(){
         $name = mysqli_real_escape_string(Dbconfig::getInstance()->getConnection(), $_POST["username"]);
         $getUserQuery = "SELECT uName FROM users WHERE uName = '" . $name . "';";
@@ -119,17 +154,6 @@ class User
         $queryResult = Dbconfig::getInstance()->getConnection()->query($isAdminQuery)->fetch_object();
         $this->isAdmin = get_object_vars($queryResult)["isAdmin"];
         return $this->isAdmin;
-    }
-
-    public static function setSession()
-    {
-        $user = new User();
-        $_SESSION["logged_in"] = true;
-        $_SESSION["uId"] = $user->getId();
-        $_SESSION["username"] =  $user->getUserByUsername();
-        if ($user->getIsAdmin()) {
-            $_SESSION["isAdmin"] = true;
-        }
     }
 
     public static function setCookies()

@@ -13,6 +13,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST)) {
         $registerForm->email = $_POST['email'];
 
         if ($registerForm->register()) {
+
+            $user = User::findByName($registerForm->name);
+            $user->login();
+
+
+
+
+
+
+
             $_SESSION["logged_in"] = true;
             $_SESSION["username"] = $registerForm->username;
             $_SESSION["password"] = $registerForm->password;

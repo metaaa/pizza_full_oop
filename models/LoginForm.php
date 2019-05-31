@@ -100,6 +100,19 @@ class LoginForm
             return false;
         }
 
+        $user = User::findByName($this->name);
+
+        if (empty($user)) {
+            Flash::error('Wrong username or password!');
+            return false;
+        }
+
+        if (!$user->checkPassword($this->password)) {
+            Flash::error("Wrong username or password!");
+
+            return false;
+        }
+
         return true;
     }
     /**
@@ -109,20 +122,15 @@ class LoginForm
      */
     public function login()
     {
-        $this->getUser();
+        //$this->getUser();
 
         if (!$this->validate()) {
             return false;
         }
 
-        if (!$this->checkUsername()) {
-            return false;
-        }
+        $user = User::findByName($this->name);
 
-        if (!$this->checkPassword()) {
-            return false;
-        }
-        return true;
+        return $user->login();
     }
 
 }

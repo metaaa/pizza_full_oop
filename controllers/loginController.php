@@ -12,8 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST)) {
         $loginForm->password = $_POST['password'];
 
         if ($loginForm->login()) {
-            User::setSession();
-            User::setCookies();
+
             Flash::success("You have logged in!");
         }
         header("Location: /pizza_full_oop/index.php?page=home");
