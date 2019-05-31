@@ -1,22 +1,20 @@
 <?php
 
-class Menu extends Dbconfig
+class Menu
 {
-    public static function countRows(){
+    /*public static function countRows(){
         $countQuery = "SELECT COUNT(mId) FROM menus";
         $countResult = Dbconfig::getInstance()->getConnection()->query($countQuery)->fetch_array();
         //print_r($countResult);
         return (100 / $countResult[0]);
-    }
+    }*/
 
     public static function getMenus()
     {
         $menuQuery = "SELECT * FROM menus";
         $menuQueryResult = Dbconfig::getInstance()->getConnection()->query($menuQuery);
-        echo "<ul>";
         while ($row = $menuQueryResult->fetch_assoc()){
-            echo '<li style="width: ' . self::countRows() . '%"><a href="index.php?page=' . $row['mLink'] . '">' . $row['mName'] . '</a>';
+            echo '<li class="nav-item"><a class="nav-link" href="index.php?page=' . $row['mLink'] . '">' . $row['mName'] . '</a></li>';
         }
-        echo "</ul>";
     }
 }

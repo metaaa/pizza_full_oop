@@ -1,2 +1,1 @@
-<?php
-    Flash::error("Oops");
+about

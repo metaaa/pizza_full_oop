@@ -11,7 +11,6 @@ class LoginForm
     public $createdAt;
     public $lastSeen;
     public $isAdmin;
-    public $rememberMe;
     protected $user;
 
    protected function getUser()
@@ -73,8 +72,6 @@ class LoginForm
      */
     public function validate()
     {
-        //$user = new User();
-
         if (empty($this->name)) {
             Flash::error("Fill the username!");
             return false;
@@ -110,7 +107,6 @@ class LoginForm
         if (!$this->checkPassword()) {
             return false;
         }
-
         return true;
     }
 

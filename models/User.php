@@ -23,6 +23,14 @@ class User
         $this->name = get_object_vars($queryResult)["uName"];
         return $this->name;
     }
+    public static function getName(){
+        $name = mysqli_real_escape_string(Dbconfig::getInstance()->getConnection(), $_POST["username"]);
+        $getUserQuery = "SELECT uName FROM users WHERE uName = '" . $name . "';";
+        $queryResult = Dbconfig::getInstance()->getConnection()->query($getUserQuery)->fetch_object();
+        $name = get_object_vars($queryResult)["uName"];
+
+        return $name;
+    }
 
     /**
      * @return mixed
@@ -113,7 +121,25 @@ class User
         return $this->isAdmin;
     }
 
+    public static function setSession()
+    {
+        $user = new User();
+        $_SESSION["logged_in"] = true;
+        $_SESSION["uId"] = $user->getId();
+        $_SESSION["username"] =  $user->getUserByUsername();
+        if ($user->getIsAdmin()) {
+            $_SESSION["isAdmin"] = true;
+        }
+    }
 
+    public static function setCookies()
+    {
+        if ($_POST["rememberMe"] == "on") {
+            setcookie($_SESSION["logged_in"], true, time() + (86400 * 5), "/"); // 86400 = 1 day
+            setcookie($_SESSION["uId"], true, time() + (86400 * 30), "/");
+        }
+
+    }
 
     /**
      * @param mixed $name

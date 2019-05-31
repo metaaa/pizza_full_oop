@@ -19,57 +19,54 @@ spl_autoload_register(function ($className) {
     <title>order pizza by metaaa</title>
 </head>
 <body>
-    <div class="grid-container">
-        <div class="header"></div>
-    <div class="menu">
-            <?= Menu::getMenus(); ?>
+<div class="container">
+    <div class="row justify-content-center" id="header-container">
+        <div class="col-12" id="header"></div>
     </div>
-    <?php
-/*        if (Flash::getSuccess()) { */?><!--
-            <div class="flash">
-                <?/*= Flash::getSuccess() */?>
-            </div>
-    <?php
-/*        }
-        if (Flash::getError()) { */?>
-        <div class="flash">
-            <?/*= Flash::getError() */?>
+    <!-- menu -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar">
+        <a class="navbar-brand" href="#">PizzaSite</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <?= Menu::getMenus(); ?>
+                </li>
+            </ul>
         </div>
-    --><?php
-/*        }
-        Flash::flush()
-    */?>
+    </nav>
 
-    <div class="body-container">
-        <div class="content">
+    <div class="row">
+        <div class="col-8">
             <?php
             //set the content for the pages
-                $pagesDir = 'content-files';
-                if (!empty($_GET['page'])) {
-                    try {
-                        $pages = scandir($pagesDir,0);
-                        unset($pages[0], $pages[1]);
-                        $page =  $_GET['page'];
-                        if (!in_array($page . '.php', $pages)){
-                            throw new Exception("Page not found...");
-                        }
-                        include ($pagesDir . '/' . $page . '.php');
-                    } catch (Exception $exception) {
-                        echo $exception->getMessage();
+            $pagesDir = 'content-files';
+            if (!empty($_GET['page'])) {
+                try {
+                    $pages = scandir($pagesDir,0);
+                    unset($pages[0], $pages[1]);
+                    $page =  $_GET['page'];
+                    if (!in_array($page . '.php', $pages)){
+                        throw new Exception("Page not found...");
                     }
-                } else{
-                    include ($pagesDir . '/home.php');
+                    include ($pagesDir . '/' . $page . '.php');
+                } catch (Exception $exception) {
+                    echo $exception->getMessage();
                 }
+            } else{
+                include ($pagesDir . '/home.php');
+            }
             ?>
         </div>
-        <div class="actions">
+        <div class="col-4">
             <?php
-                include "forms/login.php";
+            include "forms/login.php";
             ?>
         </div>
     </div>
-    <div class="footer"></div>
-    </div>
-<script src="js/login-form.js"></script>
+    <div class="row justify-content-center">footer</div>
+</div>
 </body>
 </html>
