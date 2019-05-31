@@ -10,11 +10,9 @@ spl_autoload_register(function ($className) {
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="css/default.css">
 <link href="favicon.ico" rel="icon" type="image/x-icon" />
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 <html>
-
-
 <head>
     <title>order pizza by metaaa</title>
 </head>
@@ -37,9 +35,25 @@ spl_autoload_register(function ($className) {
             </ul>
         </div>
     </nav>
-
+    <div class="row justify-content-center" id="flash-container">
+        <?php
+        if (Flash::getSuccess()) { ?>
+            <div class="alert alert-success" role="alert" style="width: 100%">
+                <?= Flash::getSuccess() ?>
+            </div>
+            <?php
+        }
+        if (Flash::getError()) { ?>
+            <div class="alert alert-danger" role="alert" style="width: 100%">
+                <?= Flash::getError() ?>
+            </div>
+            <?php
+        }
+        Flash::flush()
+        ?>
+    </div>
     <div class="row">
-        <div class="col-8">
+        <div class="col-9">
             <?php
             //set the content for the pages
             $pagesDir = 'content-files';
@@ -60,13 +74,29 @@ spl_autoload_register(function ($className) {
             }
             ?>
         </div>
-        <div class="col-4">
+        <div class="col-3">
             <?php
-            include "forms/login.php";
+                include "forms/login.php";
+                include "forms/register.php";
             ?>
         </div>
     </div>
-    <div class="row justify-content-center">footer</div>
+    <!-- Footer -->
+    <footer class="page-footer font-small" style="background: #343a40">
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3" style="color: white">© 2018 Copyright: metaaa
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
 </div>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script src="https://code.jquery.com/jquery-latest.js"></script>
+<script  src="js/login_form.js"></script>
 </body>
 </html>

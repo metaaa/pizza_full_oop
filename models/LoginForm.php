@@ -13,6 +13,11 @@ class LoginForm
     public $isAdmin;
     protected $user;
 
+    /**
+     * fills up $user with the queried user data
+     *
+     * @return User
+     */
    protected function getUser()
     {
         if ($this->user === null) {
@@ -32,6 +37,8 @@ class LoginForm
 
 
     /**
+     * checks whether the user exists in the database or not
+     *
      * @return bool
      */
     public function checkUsername()
@@ -44,6 +51,8 @@ class LoginForm
     }
 
     /**
+     * checks whether the password from POST equals to the one obtained from the db or not
+     *
      * @return bool
      */
     public function checkPassword()
@@ -56,6 +65,8 @@ class LoginForm
     }
 
     /**
+     * checks if the user is admin
+     *
      * @return bool
      */
     public function checkAdmin()
@@ -68,6 +79,8 @@ class LoginForm
     }
 
     /**
+     * validates the form
+     *
      * @return bool
      */
     public function validate()
@@ -90,6 +103,8 @@ class LoginForm
         return true;
     }
     /**
+     * logs the user in if validation and user data checks returned true
+     *
      * @return bool
      */
     public function login()

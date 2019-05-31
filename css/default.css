@@ -2,7 +2,6 @@
     margin: 0px;
 }
 
-
 #header {
     grid-area: header;
     height: 200px;
@@ -12,3 +11,24 @@
     background-clip: inherit;
     padding: 0px;
 }
+
+#flash-container {
+    margin: 0px;
+    text-align: center;
+}
+
+#card-body-register {
+    display: none;
+}
+/*
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 300px;
+    margin: 0 auto;
+}
+.container:before, .container:after {
+    content: "";
+    display: block;
+    clear: both;
+}*/

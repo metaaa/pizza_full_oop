@@ -1,6 +1,6 @@
 <?php
 
-class BaseRecord extends Dbconfig
+class BaseRecord
 {
     /**
      * Validates the model's attributes.

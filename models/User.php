@@ -135,8 +135,9 @@ class User
     public static function setCookies()
     {
         if ($_POST["rememberMe"] == "on") {
-            setcookie($_SESSION["logged_in"], true, time() + (86400 * 5), "/"); // 86400 = 1 day
-            setcookie($_SESSION["uId"], true, time() + (86400 * 30), "/");
+            setcookie('logged_in', $_SESSION["logged_in"], time() + (86400 * 5), "/"); // 86400 = 1 day
+            setcookie('uId', $_SESSION["uId"], time() + (86400 * 5), "/");
+            setcookie('username', $_SESSION["username"], time() + (86400 * 5), "/");
         }
 
     }

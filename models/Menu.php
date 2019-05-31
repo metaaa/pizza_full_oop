@@ -8,7 +8,9 @@ class Menu
         //print_r($countResult);
         return (100 / $countResult[0]);
     }*/
-
+    /**
+     * gets the menu items from the database
+     */
     public static function getMenus()
     {
         $menuQuery = "SELECT * FROM menus";

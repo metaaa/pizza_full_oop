@@ -8,5 +8,9 @@
 
 class QueryBuilder
 {
-
+    public static function Query($sqlQuery)
+    {
+        $results = Dbconfig::getInstance()->getConnection()->query($sqlQuery);
+        return $results;
+    }
 }
