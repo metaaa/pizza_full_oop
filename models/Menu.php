@@ -2,12 +2,6 @@
 
 class Menu
 {
-    /*public static function countRows(){
-        $countQuery = "SELECT COUNT(mId) FROM menus";
-        $countResult = Dbconfig::getInstance()->getConnection()->query($countQuery)->fetch_array();
-        //print_r($countResult);
-        return (100 / $countResult[0]);
-    }*/
     /**
      * gets the menu items from the database
      */

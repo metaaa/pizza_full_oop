@@ -2,98 +2,44 @@
 
 class RegisterForm
 {
-    public $name;
-    public $email;
-    public $password;
+    public $uName;
+    public $uEmail;
+    public $uPassword;
     protected $user;
-
-    protected function getUser()
-    {
-        if ($this->user === null) {
-            $this->user = new User();
-            $this->name = $this->user->getUserByUsername();
-            $this->email = $this->user->getUserByEmail();
-        }
-        return $this->user;
-    }
-
-    /**
-     * @return bool
-     */
-    public function checkUsername()
-    {
-        if (!empty($this->name)) {
-            Flash::error("Username is taken!");
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * @return bool
-     */
-    public function checkPassword()
-    {
-        $this->password =  $_POST["password"];
-        if (strlen($this->password) < 5) {
-            Flash::error("Too short password!");
-            return false;
-        }
-        return true;
-    }
-
-    public function checkEmail()
-    {
-        $this->email = $_POST["email"];
-        if (!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^",$this->email))
-        {
-            return false;
-        }
-        //checks for presence of @ and .
-        if (!stristr($this->email,"@") || !stristr($this->email,".")){
-            return false;
-        }
-        return true;
-    }
 
     /**
      * @return bool
      */
     public function validate()
     {
-        $user = new User();
-        if (empty($this->username)) {
+        if (empty($this->uName)) {
             Flash::error("Fill the username!");
             return false;
         }
-        if (empty($this->password)) {
+        if (empty($this->uPassword)) {
             Flash::error("Fill the password!");
             return false;
         }
 
-        if (empty($this->email)) {
+        if (empty($this->uEmail)) {
             Flash::error("Fill the email!");
             return false;
         }
 
-        if (!$this->checkEmail()){
-            Flash::error("Invalid email address!");
+        if (!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^",$this->uEmail))
+        {
             return false;
         }
 
-
-        if (!$this->checkPassword()) {
-            Flash::error("Password is too short!");
+        //checks for presence of @ and .
+        if (!stristr($this->uEmail,"@") || !stristr($this->uEmail,".")){
             return false;
         }
 
-        if (!empty($user->findByName($this->name))) {
-            Flash::error("Username is taken!");
-            return false;
-        }
+        $user = User::findByName($this->uName);
 
-        if (!empty($user->getUserByEmail())) {
-            Flash::error("Email is already registered!");
+        if (!empty($user)) {
+            Flash::error('Username is taken!');
             return false;
         }
 
@@ -102,10 +48,9 @@ class RegisterForm
 
     public function createUser()
     {
-        $this->username = $_POST['username'];
-        $createQuery = "INSERT INTO `users` (uName, uEmail, uPassword) VALUES ('" . $this->username . "', '" . $this->email . "', '" . crypt($this->password) . "');";
+        $this->uName = $_POST['uName'];
+        $createQuery = "INSERT INTO `users` (uName, uEmail, uPassword) VALUES ('" . $this->uName . "', '" . $this->uEmail . "', '" . crypt($this->uPassword) . "');";
         $resultQuery = Dbconfig::getInstance()->getConnection()->real_query($createQuery);
-        //var_dump($resultQuery); die;
         if ($resultQuery === false){
             Flash::error("Database error!");
             return false;
@@ -119,15 +64,6 @@ class RegisterForm
     public function register()
     {
         if (!$this->validate()) {
-            return false;
-        }
-        if (!$this->checkUsername()) {
-            return false;
-        }
-        if (!$this->checkPassword()) {
-            return false;
-        }
-        if(!$this->checkEmail()) {
             return false;
         }
 

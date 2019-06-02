@@ -6,26 +6,15 @@ spl_autoload_register(function ($className) {
 });
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST)) {
-    if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])) {
+    if (isset($_POST['uName']) && isset($_POST['uPassword']) && isset($_POST['uEmail'])) {
         $registerForm = new RegisterForm();
-        $registerForm->username = $_POST['username'];
-        $registerForm->password = $_POST['password'];
-        $registerForm->email = $_POST['email'];
+        $registerForm->uName = $_POST['uName'];
+        $registerForm->uPassword = $_POST['uPassword'];
+        $registerForm->uEmail = $_POST['uEmail'];
 
         if ($registerForm->register()) {
-
-            $user = User::findByName($registerForm->name);
+            $user = User::findByName($registerForm->uName);
             $user->login();
-
-
-
-
-
-
-
-            $_SESSION["logged_in"] = true;
-            $_SESSION["username"] = $registerForm->username;
-            $_SESSION["password"] = $registerForm->password;
         }
 
         header("Location: /pizza_full_oop/index.php?page=register");

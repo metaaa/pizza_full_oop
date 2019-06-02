@@ -6,13 +6,12 @@ spl_autoload_register(function ($className) {
 });
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST)) {
-    if (isset($_POST['username']) && isset($_POST['password'])) {
+    if (isset($_POST['uName']) && isset($_POST['uPassword'])) {
         $loginForm = new LoginForm();
-        $loginForm->name = $_POST['username'];
-        $loginForm->password = $_POST['password'];
+        $loginForm->uName = $_POST['uName'];
+        $loginForm->uPassword = $_POST['uPassword'];
 
         if ($loginForm->login()) {
-
             Flash::success("You have logged in!");
         }
         header("Location: /pizza_full_oop/index.php?page=home");

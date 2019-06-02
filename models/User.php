@@ -18,26 +18,20 @@ class User
      */
     public static function findByName($name)
     {
+        $user = new User();
+
         $getUserQuery = "SELECT * FROM users WHERE uName = '" . $name . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($getUserQuery)->fetch_object();
         if ($queryResult == null) {
             return null;
         }
+
         $queryResult = get_object_vars($queryResult);
-
-        $user = new User();
-        
         foreach ($queryResult as $key => $item) {
-
             $user->$key = $item;
         }
-
-
         return $user;
-
     }
-
-
 
     /**
      * @param $password
@@ -45,26 +39,17 @@ class User
      */
     public function checkPassword($password)
     {
-        return $this->password === crypt($password, $this->password);
+        return $this->uPassword === crypt($password, $this->uPassword);
     }
 
     public function login()
     {
         $_SESSION["logged_in"] = true;
-        $_SESSION["uId"] = $this->id;
-        $_SESSION["username"] =  $this->name;
+        $_SESSION["uId"] = $this->uId;
+        $_SESSION["uName"] = $this->uName;
         $_SESSION["isAdmin"] = true;
         return true;
 
-    }
-
-    public static function getName(){
-        $name = mysqli_real_escape_string(Dbconfig::getInstance()->getConnection(), $_POST["username"]);
-        $getUserQuery = "SELECT uName FROM users WHERE uName = '" . $name . "';";
-        $queryResult = Dbconfig::getInstance()->getConnection()->query($getUserQuery)->fetch_object();
-        $name = get_object_vars($queryResult)["uName"];
-
-        return $name;
     }
 
     /**
@@ -76,85 +61,9 @@ class User
         $getEmailQuery = "SELECT uEmail FROM users WHERE uEmail = '" . $this->email . "';";
         $queryResult = Dbconfig::getInstance()->getConnection()->query($getEmailQuery)->fetch_object();
         $this->email = get_object_vars($queryResult)["uEmail"];
-        return $this->email;
+        return $this->uEmail;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        $getIdQuery = "SELECT uId FROM users WHERE uName = '" . $this->getUserByUsername() . "';";
-        $queryResult = Dbconfig::getInstance()->getConnection()->query($getIdQuery)->fetch_object();
-        $this->id = get_object_vars($queryResult)["uId"];
-        return $this->id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPassword()
-    {
-        $getPasswordQuery = "SELECT uPassword FROM users WHERE uId = '" . $this->getId() . "';";
-        $queryResult = Dbconfig::getInstance()->getConnection()->query($getPasswordQuery)->fetch_object();
-        $this->password = get_object_vars($queryResult)["uPassword"];
-        return $this->password;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCredits()
-    {
-        $getCreditsQuery = "SELECT uCredits FROM users WHERE uId = '" . $this->getId() . "';";
-        $queryResult = Dbconfig::getInstance()->getConnection()->query($getCreditsQuery)->fetch_object();
-        $this->credits = get_object_vars($queryResult)["uCredits"];
-        return $this->credits;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAvatar()
-    {
-        $getAvatarQuery = "SELECT uAvatar FROM users WHERE uId = '" . $this->getId() . "';";
-        $queryResult = Dbconfig::getInstance()->getConnection()->query($getAvatarQuery)->fetch_object();
-        $this->avatar = get_object_vars($queryResult)["uAvatar"];
-        return $this->avatar;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCreatedAt()
-    {
-        $getCreatedAtQuery = "SELECT uCreatedAt FROM users WHERE uId = '" . $this->getId() . "';";
-        $queryResult = Dbconfig::getInstance()->getConnection()->query($getCreatedAtQuery)->fetch_object();
-        $this->createdAt = get_object_vars($queryResult)["uCreatedAt"];
-        return $this->createdAt;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLastSeen()
-    {
-        $getLastSeenQuery = "SELECT uLastSeen FROM users WHERE uId = '" . $this->getId() . "';";
-        $queryResult = Dbconfig::getInstance()->getConnection()->query($getLastSeenQuery)->fetch_object();
-        $this->lastSeen = get_object_vars($queryResult)["uLastSeen"];
-        return $this->lastSeen;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIsAdmin()
-    {
-        $isAdminQuery = "SELECT isAdmin FROM users WHERE uId = '" . $this->getId() . "';";
-        $queryResult = Dbconfig::getInstance()->getConnection()->query($isAdminQuery)->fetch_object();
-        $this->isAdmin = get_object_vars($queryResult)["isAdmin"];
-        return $this->isAdmin;
-    }
 
     public static function setCookies()
     {
@@ -165,67 +74,4 @@ class User
         }
 
     }
-
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    }
-
-    /**
-     * @param mixed $credits
-     */
-    public function setCredits($credits)
-    {
-        $this->credits = $credits;
-    }
-
-    /**
-     * @param mixed $avatar
-     */
-    public function setAvatar($avatar)
-    {
-        $this->avatar = $avatar;
-    }
-
-    /**
-     * @param mixed $lastSeen
-     */
-    public function setLastSeen($lastSeen)
-    {
-        $this->lastSeen = $lastSeen;
-    }
-
-    /**
-     * @param mixed $isAdmin
-     */
-    public function setIsAdmin($isAdmin)
-    {
-        $this->isAdmin = $isAdmin;
-    }
-
-
-
-
-
-
-
 }

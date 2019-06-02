@@ -10,7 +10,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     </div> <!-- input-group-prepend -->
-                    <input name="username" type="input" class="form-control" placeholder="Email or username">
+                    <input name="uName" type="input" class="form-control" placeholder="Email or username">
                 </div> <!-- input-group -->
             </div> <!-- form-group -->
             <div class="form-group">
@@ -18,7 +18,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                     </div> <!-- input-group-prepend -->
-                    <input class="form-control" name="password" type="password" placeholder="******">
+                    <input class="form-control" name="uPassword" type="password" placeholder="******">
                 </div> <!-- input-group -->
             </div> <!-- form-group -->
             <div class="checkbox">
