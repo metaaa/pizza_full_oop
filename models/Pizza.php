@@ -1,6 +1,6 @@
 <?php
 
-class Pizza extends BaseRecord implements iMethods
+class Pizza
 {
     public $id;
     public $name;
