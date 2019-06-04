@@ -10,7 +10,7 @@ class BaseRecord
             $users[] = "";
             $record = Dbconfig::getInstance()->getConnection()->query($getAllQuery);
 
-            while ($row = $record->fetch_assoc()) {
+            while ($row = $record->fetch_object()) {
                 $users[] = $row;
             }
             return $users;
@@ -20,7 +20,7 @@ class BaseRecord
             $pizzas[] = "";
             $record = Dbconfig::getInstance()->getConnection()->query($getAllQuery);
 
-            while ($row = $record->fetch_assoc()) {
+            while ($row = $record->fetch_object()) {
                 $pizzas[] = $row;
             }
             return $pizzas;
@@ -33,7 +33,7 @@ class BaseRecord
      * Validates the model's attributes.
      * @return bool
      */
-    public function validate()
+    public function validate($object)
     {
         if (empty($this->name) || empty($this->credits) || empty($this->address) || empty($this->image)){
             return false;

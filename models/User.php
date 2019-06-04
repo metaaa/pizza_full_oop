@@ -42,29 +42,9 @@ class User
         return $this->uPassword === crypt($password, $this->uPassword);
     }
 
-    public function login()
-    {
-        $_SESSION["logged_in"] = true;
-        $_SESSION["uId"] = $this->uId;
-        $_SESSION["uName"] = $this->uName;
-        $_SESSION["isAdmin"] = true;
-        return true;
-
-    }
-
     /**
-     * @return mixed
+     * setting the cookies
      */
-    public function getUserByEmail()
-    {
-        $this->email = mysqli_real_escape_string(Dbconfig::getInstance()->getConnection(), $_POST["email"]);
-        $getEmailQuery = "SELECT uEmail FROM users WHERE uEmail = '" . $this->email . "';";
-        $queryResult = Dbconfig::getInstance()->getConnection()->query($getEmailQuery)->fetch_object();
-        $this->email = get_object_vars($queryResult)["uEmail"];
-        return $this->uEmail;
-    }
-
-
     public static function setCookies()
     {
         if ($_POST["rememberMe"] == "on") {
