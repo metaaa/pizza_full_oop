@@ -1,5 +1,4 @@
 <div class="card">
-    <divider>
     <article class="card-body" id="card-body-login">
         <a href="#" class="float-right btn btn-outline-primary">Sign up</a>
         <h4 class="card-title mb-4 mt-1">Sign in</h4>
@@ -29,7 +28,6 @@
             </div> <!-- submit button -->
         </form>
     </article>
-</divider>
 </div> <!-- card -->
 
 

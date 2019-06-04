@@ -1,5 +1,4 @@
-/*
-$('.card-body a').click(function(){
+$('.card a').click(function(){
     //event.preventDefault();
-    $('divider').animate({height: "toggle", opacity: "toggle"}, "slow");
-});*/
+    $('article').animate({height: "toggle", opacity: "toggle"}, "slow");
+});
