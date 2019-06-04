@@ -2,6 +2,33 @@
 
 class BaseRecord
 {
+
+    public static function getAll($tableName)
+    {
+        $getAllQuery = "SELECT * FROM " . $tableName . ";";
+        if ($tableName == "users") {
+            $users[] = "";
+            $record = Dbconfig::getInstance()->getConnection()->query($getAllQuery);
+
+            while ($row = $record->fetch_assoc()) {
+                $users[] = $row;
+            }
+            return $users;
+        }
+
+        if ($tableName == "pizzas") {
+            $pizzas[] = "";
+            $record = Dbconfig::getInstance()->getConnection()->query($getAllQuery);
+
+            while ($row = $record->fetch_assoc()) {
+                $pizzas[] = $row;
+            }
+            return $pizzas;
+        }
+
+        return false;
+    }
+    
     /**
      * Validates the model's attributes.
      * @return bool

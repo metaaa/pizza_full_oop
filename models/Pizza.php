@@ -2,11 +2,19 @@
 
 class Pizza
 {
-    public $id;
-    public $name;
-    public $price;
-    public $items;
-    public $image;
+    public $pId;
+    public $pName;
+    public $pPrice;
+    public $pItems;
+    public $pImage;
+
+    public static function getPizzas()
+    {
+        $getAllquery = "";
+    }
+
+
+
 
     /**
      * Validates the model's attributes.

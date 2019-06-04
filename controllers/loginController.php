@@ -13,6 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST)) {
 
         if ($loginForm->login()) {
             Flash::success("You have logged in!");
+            echo '<pre>';
+            print_r(BaseRecord::getAll("users")); echo '</pre>'; die;
         }
         header("Location: /pizza_full_oop/index.php?page=home");
         exit();
