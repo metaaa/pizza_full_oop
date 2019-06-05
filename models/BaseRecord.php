@@ -2,31 +2,20 @@
 
 class BaseRecord
 {
-
+    /**
+     * @param $tableName
+     * @return array of objects
+     */
     public static function getAll($tableName)
     {
+        $result[] = "";
         $getAllQuery = "SELECT * FROM " . $tableName . ";";
-        if ($tableName == "users") {
-            $users[] = "";
-            $record = Dbconfig::getInstance()->getConnection()->query($getAllQuery);
+        $record = Dbconfig::getInstance()->getConnection()->query($getAllQuery);
 
-            while ($row = $record->fetch_object()) {
-                $users[] = $row;
+        while ($row = $record->fetch_object()) {
+                $result[] = $row;
             }
-            return $users;
-        }
-
-        if ($tableName == "pizzas") {
-            $pizzas[] = "";
-            $record = Dbconfig::getInstance()->getConnection()->query($getAllQuery);
-
-            while ($row = $record->fetch_object()) {
-                $pizzas[] = $row;
-            }
-            return $pizzas;
-        }
-
-        return false;
+        return $result;
     }
     
     /**

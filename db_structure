@@ -26,5 +26,6 @@ CREATE TABLE `menus` (
                        `mId` INT unsigned NOT NULL AUTO_INCREMENT,
                        `mName` VARCHAR(255) NOT NULL,
                        `mLink` VARCHAR(255) NOT NULL,
+                       `mAdmin` INT unsigned DEFAULT NULL,
                        PRIMARY KEY (`mId`)
 );
